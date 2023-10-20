@@ -1,11 +1,11 @@
 import FullBleed from "~/components/FullBleed";
-import Image from "next/image";
 import dynamic from "next/dynamic";
 import Video from "~/components/Video";
 import { useRouter } from "next/router";
 import { projectQuerySchema } from "~/lib/utils";
 import Header from "~/components/Header";
 import { projects } from "~/lib/projects";
+import LightBoxImage from "~/components/LightBoxImage";
 
 const BandcampPlayer = dynamic(() => import("~/components/BandcampPlayer"), {
   ssr: false,
@@ -45,13 +45,10 @@ export default function DreiundzwanzigPage() {
           </p>
         </div>
         <div className="relative h-full w-full">
-          <Image
-            className={"!relative w-full object-contain"}
+          <LightBoxImage
             src={"/images/dreiundzwanzig/cover-full.png"}
-            alt={"Album cover full"}
-            fill
-            loading="lazy"
-            sizes="100vw"
+            alt={"Album cover"}
+            sizes={"100vw"}
           />
         </div>
         <div className="w-full md:w-2/3 lg:w-1/2">

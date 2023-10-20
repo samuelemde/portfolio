@@ -1,10 +1,10 @@
 import FullBleed from "~/components/FullBleed";
 import Link from "next/link";
-import Image from "next/image";
-import { cn, projectQuerySchema } from "~/lib/utils";
+import { projectQuerySchema } from "~/lib/utils";
 import { useRouter } from "next/router";
 import Header from "~/components/Header";
 import { projects } from "~/lib/projects";
+import LightBoxImage from "~/components/LightBoxImage";
 
 const images = [
   {
@@ -75,29 +75,20 @@ export default function ArduistPage() {
           </p>
         </div>
         <div className={"relative w-full items-center justify-center md:w-2/3"}>
-          <Image
-            className={"!relative object-cover"}
+          <LightBoxImage
             src={"/images/arduist/app.png"}
             alt={"Arduist App"}
-            fill
-            sizes="(min-width: 1024px) 33vw, 100vw"
+            sizes={"(min-width: 768px) 66vw, 100vw"}
           />
         </div>
         <div className="grid h-full w-full grid-cols-1 gap-y-20 md:gap-12 md:p-6 lg:grid-cols-2">
           {images.map((image) => (
-            <div
+            <LightBoxImage
               key={image.src}
-              className={cn("relative", image.className ?? "")}
-            >
-              <Image
-                className="!relative object-cover"
-                src={image.src}
-                alt={image.alt}
-                fill
-                loading="lazy"
-                sizes="(min-width: 1024px) 50vw, 100vw"
-              />
-            </div>
+              src={image.src}
+              alt={image.alt}
+              sizes={"(min-width: 1024px) 50vw, 100vw"}
+            />
           ))}
         </div>
       </div>

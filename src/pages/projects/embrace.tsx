@@ -1,11 +1,11 @@
 import FullBleed from "~/components/FullBleed";
 import Link from "next/link";
-import Image from "next/image";
 import Video from "~/components/Video";
 import { useRouter } from "next/router";
 import { projectQuerySchema } from "~/lib/utils";
 import Header from "~/components/Header";
 import { projects } from "~/lib/projects";
+import LightBoxImage from "~/components/LightBoxImage";
 
 const images = [
   { src: "/images/embrace/embrace-booklet.png", alt: "Embrace 1 - Booklet" },
@@ -64,16 +64,12 @@ export default function EmbracePage() {
         {/* ------ Images ------*/}
         <div className="grid h-full w-full grid-cols-1 gap-12 gap-y-20 py-6 lg:grid-cols-2">
           {images.map((image) => (
-            <div key={image.src} className="relative">
-              <Image
-                className={"!relative w-full object-cover"}
-                src={image.src}
-                alt={image.alt}
-                fill
-                loading="lazy"
-                sizes={"(min-width: 1024px) 50vw, 100vw"}
-              />
-            </div>
+            <LightBoxImage
+              key={image.src}
+              src={image.src}
+              alt={image.alt}
+              sizes={"(min-width: 1024px) 50vw, 100vw"}
+            />
           ))}
         </div>
         <div className="w-full md:w-2/3 lg:w-1/2">

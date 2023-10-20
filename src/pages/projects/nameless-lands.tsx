@@ -1,9 +1,9 @@
 import FullBleed from "~/components/FullBleed";
-import Image from "next/image";
 import { useRouter } from "next/router";
 import { projectQuerySchema } from "~/lib/utils";
 import Header from "~/components/Header";
 import { projects } from "~/lib/projects";
+import LightBoxImage from "~/components/LightBoxImage";
 
 export default function NamelessLandsPage() {
   const { query } = useRouter();
@@ -63,12 +63,10 @@ export default function NamelessLandsPage() {
             "relative w-full flex-col items-center justify-center md:w-2/3"
           }
         >
-          <Image
-            className={"!relative w-full object-contain"}
+          <LightBoxImage
             src={"/images/namelesslands/gameplay.png"}
-            alt={"Screenshot of Nameless Lands gameplay"}
-            fill
-            loading="lazy"
+            alt={"Nameless Lands gameplay"}
+            sizes={"(min-width: 768px) 66vw, 100vw"}
           />
         </div>
         <div className="w-full md:w-2/3 lg:w-1/2">

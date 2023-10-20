@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import FullBleed from "~/components/FullBleed";
 import Video from "~/components/Video";
@@ -6,6 +5,7 @@ import { useRouter } from "next/router";
 import { projectQuerySchema } from "~/lib/utils";
 import Header from "~/components/Header";
 import { projects } from "~/lib/projects";
+import LightBoxImage from "~/components/LightBoxImage";
 
 const images = [
   {
@@ -129,17 +129,13 @@ export default function NFNPage() {
         {/* ------ Images ------*/}
         <div className="grid h-full w-full grid-cols-1 gap-12 gap-y-20 lg:grid-cols-2">
           {images.map((image) => (
-            <div key={image.src} className="relative">
-              <Image
-                className={"!relative w-full object-contain"}
-                src={image.src}
-                alt={image.alt}
-                fill
-                loading="lazy"
-                sizes={"(min-width: 1024px) 50vw, 100vw"}
-              />
-              <p className="text-center text-sm italic">{image.alt}</p>
-            </div>
+            <LightBoxImage
+              key={image.src}
+              src={image.src}
+              alt={image.alt}
+              sizes={"(min-width: 1024px) 50vw, 100vw"}
+              renderAlt={true}
+            />
           ))}
         </div>
         <div
@@ -147,16 +143,12 @@ export default function NFNPage() {
             "flex w-full flex-col items-center justify-center lg:w-2/3"
           }
         >
-          <Image
-            className={"!relative w-full object-contain"}
+          <LightBoxImage
             src={"/images/nfn/map2.png"}
             alt={"Resulting map with all the detected objects"}
-            fill
-            loading="lazy"
+            sizes={"(min-width: 768px) 66vw, 100vw"}
+            renderAlt={true}
           />
-          <p className="p-2 text-center text-sm italic">
-            Resulting map with all the detected objects
-          </p>
         </div>
       </div>
     </>
