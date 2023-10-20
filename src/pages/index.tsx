@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useLayoutEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Link from "next/link";
 import useAnimatedValue from "~/lib/hooks/useAnimatedValue";
 import {
@@ -65,7 +65,10 @@ export default function Home({ positions }: HomeProps) {
   const [holeSize, animateHoleSize, setHoleSize] = useAnimatedValue(40);
   const [multiplier, setMultiplier] = useAnimatedValue(1);
 
-  const startAnimation = homeQuerySchema.parse(router.query).startAnimation;
+  let startAnimation = true;
+  const queryParseResult = homeQuerySchema.safeParse(router.query);
+  if (queryParseResult.success)
+    startAnimation = queryParseResult.data.startAnimation;
 
   useEffect(() => {
     if (!startAnimation) return;

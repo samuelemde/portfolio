@@ -24,7 +24,9 @@ const images = [
 
 export default function ArduistPage() {
   const { query } = useRouter();
-  const { titleColor } = projectQuerySchema.parse(query);
+  let titleColor;
+  const queryParseResult = projectQuerySchema.safeParse(query);
+  if (queryParseResult.success) titleColor = queryParseResult.data.titleColor;
 
   return (
     <>
