@@ -33,7 +33,7 @@ export function HeaderContextProvider({
       : "SE",
   );
   const [spacing, setSpacing] = useState("0.1rem");
-  const [transition, setTransition] = useState("");
+  const [transition, setTransition] = useState("none");
 
   const animate = () => {
     if (title === "Samuel Emde") {

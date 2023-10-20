@@ -2,7 +2,6 @@ import Head from "next/head";
 
 export type LayoutProps = {
   children: React.ReactNode;
-  headerExpanded?: boolean;
 };
 
 export default function Layout({ children }: LayoutProps) {

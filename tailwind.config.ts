@@ -97,7 +97,7 @@ module.exports = {
         14: "repeat(14, minmax(0, 1fr))",
       },
       boxShadow: {
-        inversebg: "0 0 7px 4px hsl(var(--inverse-background))",
+        inverse: "0px 8px 15px 2px var(--shadow)",
       },
       transitionProperty: {
         width: "width, height",

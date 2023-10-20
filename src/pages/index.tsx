@@ -1,7 +1,13 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useLayoutEffect, useState } from "react";
 import Link from "next/link";
 import useAnimatedValue from "~/lib/hooks/useAnimatedValue";
-import { cn, projectColors, scale, shuffle } from "~/lib/utils";
+import {
+  cn,
+  homeQuerySchema,
+  projectColors,
+  scale,
+  shuffle,
+} from "~/lib/utils";
 import { useRouter } from "next/router";
 import Header from "~/components/Header";
 import { useTheme } from "next-themes";
@@ -56,8 +62,16 @@ export default function Home({ positions }: HomeProps) {
   const [isFrozen, setIsFrozen] = useState(false);
   const { animate } = useContext(HeaderContext);
 
-  const [holeSize, animateHoleSize, setHoleSize] = useAnimatedValue(50);
+  const [holeSize, animateHoleSize, setHoleSize] = useAnimatedValue(40);
   const [multiplier, setMultiplier] = useAnimatedValue(1);
+
+  const startAnimation = homeQuerySchema.parse(router.query).startAnimation;
+
+  useEffect(() => {
+    if (!startAnimation) return;
+    animateHoleSize(40, 1500, window.innerHeight / 1.2);
+    setCoordinates({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
+  }, []);
 
   useEffect(() => {
     document.documentElement.classList.add("cursor-none");
@@ -159,6 +173,22 @@ export default function Home({ positions }: HomeProps) {
             </Link>
           );
         })}
+        {/*<div*/}
+        {/*  className="pointer-events-none absolute inset-0 z-10"*/}
+        {/*  style={{*/}
+        {/*    backgroundImage: `radial-gradient(circle ${*/}
+        {/*      holeSize * multiplier*/}
+        {/*    }px at ${coordinates.x}px ${*/}
+        {/*      coordinates.y*/}
+        {/*    }px, transparent 80%, hsl(var(--background)) 100%)`,*/}
+        {/*  }}*/}
+        {/*/>*/}
+        {/*<div*/}
+        {/*  className="pointer-events-none absolute inset-0 z-10"*/}
+        {/*  style={{*/}
+        {/*    backgroundImage: `radial-gradient(circle ${holeSize}vw * ${multiplier}px at ${coordinates.x}px ${coordinates.y}px, transparent 80%, hsl(var(--background)) 100%)`,*/}
+        {/*  }}*/}
+        {/*/>*/}
         <div
           className="pointer-events-none absolute inset-0 z-10"
           style={{
@@ -183,5 +213,5 @@ export function getServerSideProps() {
   );
   const positions = rows.map((row, index) => ({ row, col: cols[index] }));
 
-  return { props: { positions, headerExpanded: true } };
+  return { props: { positions } };
 }

@@ -41,7 +41,11 @@ export default function Header({
     e.preventDefault();
     if (router.pathname === "/projects") {
       setIsOpen(false);
-      setTimeout(() => void router.push("/"), 700);
+      setTimeout(
+        () =>
+          void router.push({ pathname: "/", query: { startAnimation: false } }),
+        700,
+      );
     } else if (router.pathname === "/") {
       void router.push("/projects");
     } else {
@@ -57,10 +61,10 @@ export default function Header({
         <Link
           href={"#"}
           className={cn(
-            "cursor-none rounded-3xl py-1 pl-4 pr-6 font-heading text-4xl uppercase italic duration-700 ease-in-out hover:bg-inversebg hover:text-inversefg hover:shadow-inversebg",
+            "hover:shadow-inverse cursor-none rounded-3xl py-1 pl-4 pr-6 font-heading text-4xl uppercase italic duration-700 hover:bg-inversebg hover:text-inversefg",
             titleColor,
           )}
-          style={{ transition: transition, letterSpacing: spacing }}
+          style={{ transition, letterSpacing: spacing }}
           onClick={handleTitleClick}
           onMouseEnter={onMouseEnter}
           onMouseLeave={onMouseLeave}
@@ -71,7 +75,7 @@ export default function Header({
         <ThemeSwitcher
           size="1.8rem"
           className={cn(
-            "cursor-none rounded-full duration-0 hover:bg-inversebg hover:text-inversefg hover:shadow-inversebg",
+            "hover:shadow-inverse cursor-none rounded-full duration-0 hover:bg-inversebg hover:text-inversefg",
             titleColor,
           )}
           onMouseEnter={onMouseEnter}

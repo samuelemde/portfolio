@@ -4,9 +4,13 @@ const useAnimatedValue = (initialValue: number) => {
   const [value, setValue] = useState(initialValue);
   const animationId = useRef<number | null>(null);
 
-  const animateValue = (endValue: number, duration: number) => {
+  const animateValue = (
+    endValue: number,
+    duration: number,
+    initialValue?: number,
+  ) => {
     const startTime = performance.now();
-    const startValue = value;
+    const startValue = initialValue ?? value;
 
     // If there's an ongoing animation, cancel it
     if (animationId.current) {
