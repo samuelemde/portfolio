@@ -1,12 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import React, {
-  useContext,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { useContext, useEffect } from "react";
 import { ProjectCardsContext } from "~/contexts/ProjectCardsContext";
 import { cn } from "~/lib/utils";
 import { AspectRatio } from "@radix-ui/react-aspect-ratio";

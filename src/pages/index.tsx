@@ -123,7 +123,6 @@ export default function Home({ positions }: HomeProps) {
   return (
     <div className="relative">
       <Header
-        titleExpanded={true}
         onMouseEnter={() => setMultiplier(0, 100)}
         onMouseLeave={() => setMultiplier(1, 100)}
       />
