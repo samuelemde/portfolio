@@ -58,7 +58,7 @@ export default function ThemeSwitcher({
             style={{ height: size, width: size }}
             className={cn(
               "absolute transition-all",
-              resolvedTheme === "magic"
+              resolvedTheme === "neon"
                 ? "rotate-0 scale-100"
                 : "rotate-90 scale-0",
             )}
@@ -87,9 +87,9 @@ export default function ThemeSwitcher({
         </DropdownMenuItem>
         <DropdownMenuItem
           className="min-w-[150px] cursor-none font-heading text-lg uppercase italic tracking-widest focus:bg-inversebg focus:text-inversefg"
-          onClick={() => setTheme("magic")}
+          onClick={() => setTheme("neon")}
         >
-          Rainbow
+          Neon
         </DropdownMenuItem>
         <DropdownMenuItem
           className="min-w-[150px] cursor-none font-heading text-lg uppercase italic tracking-widest focus:bg-inversebg focus:text-inversefg"

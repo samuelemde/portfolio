@@ -125,7 +125,7 @@ export default function Home({ positions }: HomeProps) {
     setTimeout(() => {
       void router.push({
         pathname: url,
-        query: theme === "magic" ? { titleColor } : {},
+        query: theme === "neon" ? { titleColor } : {},
       });
       setIsFrozen(false);
     }, 250);

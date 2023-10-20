@@ -12,7 +12,7 @@ export default function MyApp({ Component, pageProps }: AppPropsType) {
       defaultTheme="system"
       enableSystem
       disableTransitionOnChange
-      themes={["light", "dark", "system", "magic"]}
+      themes={["light", "dark", "system", "neon"]}
     >
       <Layout>
         <HeaderContextProvider>
