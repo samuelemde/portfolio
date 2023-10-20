@@ -66,9 +66,10 @@ export default function ProjectItem({ src, title, href }: ProjectItemProps) {
         )}
         onClick={(event) => handleClick(event, href)}
       >
-        <h3 className="whitespace-pre-line text-center font-heading text-3xl font-bold uppercase italic text-projectfg">
-          {title}
-        </h3>
+        <h3
+          dangerouslySetInnerHTML={{ __html: title }}
+          className="whitespace-pre-line text-center font-heading text-3xl font-bold uppercase italic text-projectfg"
+        />
       </Link>
     </AspectRatio>
   );

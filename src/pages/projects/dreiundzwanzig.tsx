@@ -5,6 +5,7 @@ import Video from "~/components/Video";
 import { useRouter } from "next/router";
 import { projectQuerySchema } from "~/lib/utils";
 import Header from "~/components/Header";
+import { projects } from "~/lib/projects";
 
 const BandcampPlayer = dynamic(() => import("~/components/BandcampPlayer"), {
   ssr: false,
@@ -20,11 +21,10 @@ export default function DreiundzwanzigPage() {
     <>
       <Header titleColorClass={titleColor} initialTitle={"SE"} />
       <FullBleed
-        src={"/images/dreiundzwanzig/amorph.jpg"}
-        title={"Dreiundzwanzig"}
+        src={projects.dreiundzwanzig.coverImage}
+        title={projects.dreiundzwanzig.title}
         titleColorClass={titleColor}
       />
-
       <div className="flex flex-col items-center justify-center gap-20 px-8 pb-60 pt-10 lg:px-12">
         <div className="w-full md:w-2/3 lg:w-1/2">
           <h2 className="font-heading text-3xl uppercase italic">

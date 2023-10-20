@@ -39,16 +39,13 @@ export default function FullBleed({
         sizes={"100vw"}
       />
       <h1
+        dangerouslySetInnerHTML={{ __html: title }}
         className={cn(
           "absolute inset-0 flex items-center justify-center rounded-full p-4 text-center font-heading text-5xl uppercase italic [text-wrap:balance] sm:text-6xl lg:text-7xl",
           titleColor,
         )}
-        style={{
-          backgroundColor: `rgba(0, 0, 0, ${opacity})`,
-        }}
-      >
-        {title}
-      </h1>
+        style={{ backgroundColor: `rgba(0, 0, 0, ${opacity})` }}
+      />
       <div
         className={cn(
           "transition-border pointer-events-none absolute inset-0 left-[50%] top-[50%] z-10 h-full w-full translate-x-[-50%] translate-y-[-50%] transform cursor-none rounded-full border-[50cqw] border-background duration-700",

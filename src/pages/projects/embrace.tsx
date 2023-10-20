@@ -5,6 +5,7 @@ import Video from "~/components/Video";
 import { useRouter } from "next/router";
 import { projectQuerySchema } from "~/lib/utils";
 import Header from "~/components/Header";
+import { projects } from "~/lib/projects";
 
 const images = [
   { src: "/images/embrace/embrace-booklet.png", alt: "Embrace 1 - Booklet" },
@@ -24,8 +25,8 @@ export default function EmbracePage() {
     <>
       <Header titleColorClass={titleColor} initialTitle={"SE"} />
       <FullBleed
-        src={"/images/embrace/embrace1.jpeg"}
-        title={"Embrace"}
+        src={projects.embrace.coverImage}
+        title={projects.embrace.title}
         titleColorClass={titleColor}
       />
 

@@ -5,6 +5,7 @@ import Video from "~/components/Video";
 import { useRouter } from "next/router";
 import { projectQuerySchema } from "~/lib/utils";
 import Header from "~/components/Header";
+import { projects } from "~/lib/projects";
 
 const images = [
   {
@@ -43,8 +44,8 @@ export default function NFNPage() {
     <>
       <Header titleColorClass={titleColor} initialTitle={"SE"} />
       <FullBleed
-        src={"/images/nfn/dispmap3.jpg"}
-        title={"Mobile Data Upload For NFN Edge Computing"}
+        src={projects.nfn.coverImage}
+        title={projects.nfn.title}
         titleColorClass={titleColor}
       />
 

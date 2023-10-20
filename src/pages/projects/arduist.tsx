@@ -4,6 +4,7 @@ import Image from "next/image";
 import { cn, projectQuerySchema } from "~/lib/utils";
 import { useRouter } from "next/router";
 import Header from "~/components/Header";
+import { projects } from "~/lib/projects";
 
 const images = [
   {
@@ -32,8 +33,8 @@ export default function ArduistPage() {
     <>
       <Header titleColorClass={titleColor} initialTitle={"SE"} />
       <FullBleed
-        src={"/images/arduist/cover-full.png"}
-        title={"Arduist"}
+        src={projects.arduist.coverImage}
+        title={projects.arduist.title}
         opacity={0.2}
         titleColorClass={titleColor}
       />

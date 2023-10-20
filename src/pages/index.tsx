@@ -123,10 +123,11 @@ export default function Home({ positions }: HomeProps) {
         onMouseLeave={() => setMultiplier(1, 100)}
       />
       <div className="grid-rows-7 relative grid h-screen w-screen cursor-none grid-cols-8 items-center justify-center bg-inversebg pt-24">
-        {projects.map(({ title, href }, index) => {
+        {Object.values(projects).map(({ title, href }, index) => {
           const { row, col } = positions[index]!;
           return (
             <Link
+              dangerouslySetInnerHTML={{ __html: title }}
               key={title}
               href={href}
               className={cn(
@@ -149,9 +150,7 @@ export default function Home({ positions }: HomeProps) {
               onClick={(event) =>
                 handleClick(event, href, projectColors[row - 1]!)
               }
-            >
-              {title}
-            </Link>
+            />
           );
         })}
         <div
@@ -171,10 +170,10 @@ export default function Home({ positions }: HomeProps) {
 
 export function getServerSideProps(context: GetServerSidePropsContext) {
   const rows = shuffle(
-    Array.from({ length: projects.length }, (_, i) => i + 1),
+    Array.from({ length: Object.keys(projects).length }, (_, i) => i + 1),
   );
   const cols = shuffle(
-    Array.from({ length: projects.length }, (_, i) => i + 1),
+    Array.from({ length: Object.keys(projects).length }, (_, i) => i + 1),
   );
   const positions = rows.map((row, index) => ({ row, col: cols[index] }));
 

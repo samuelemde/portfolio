@@ -3,6 +3,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { projectQuerySchema } from "~/lib/utils";
 import Header from "~/components/Header";
+import { projects } from "~/lib/projects";
 
 export default function NamelessLandsPage() {
   const { query } = useRouter();
@@ -14,8 +15,8 @@ export default function NamelessLandsPage() {
     <>
       <Header titleColorClass={titleColor} initialTitle={"SE"} />
       <FullBleed
-        src={"/images/namelesslands/map-clean.jpg"}
-        title={"Nameless Lands"}
+        src={projects.namelesslands.coverImage}
+        title={projects.namelesslands.title}
         opacity={0.3}
         titleColorClass={titleColor}
       />

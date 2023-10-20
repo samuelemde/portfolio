@@ -3,6 +3,7 @@ import Video from "~/components/Video";
 import { useRouter } from "next/router";
 import { projectQuerySchema } from "~/lib/utils";
 import Header from "~/components/Header";
+import { projects } from "~/lib/projects";
 
 export default function ZuhoerenPage() {
   const { query } = useRouter();
@@ -14,8 +15,8 @@ export default function ZuhoerenPage() {
     <>
       <Header titleColorClass={titleColor} initialTitle={"SE"} />
       <FullBleed
-        src={"/images/zuhoeren/headphones2.jpeg"}
-        title={"Zuhören"}
+        src={projects.zuhoeren.coverImage}
+        title={projects.zuhoeren.title}
         titleColorClass={titleColor}
       />
 
