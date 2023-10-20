@@ -12,41 +12,16 @@ import { useRouter } from "next/router";
 import Header from "~/components/Header";
 import { useTheme } from "next-themes";
 import { HeaderContext } from "~/contexts/HeaderContext";
+import { projects } from "~/lib/projects";
+import { useIsMobile } from "~/lib/hooks/useIsMobile";
+import { type GetServerSidePropsContext } from "next";
+import { getIsSsrMobile } from "~/lib/mobileDetect";
+import { redirect } from "next/navigation";
+import { RedirectType } from "next/dist/client/components/redirect";
 
 const MIN_HOLE_SIZE = 20;
 const HIGHLIGHT_SIZE = 130;
 const MAX_HOLE_SIZE = 600;
-
-const projects = [
-  {
-    title: "Named\nFunction\nNetworking",
-    href: "projects/nfn",
-  },
-  {
-    title: "Embrace",
-    href: "projects/embrace",
-  },
-  {
-    title: "Arduist",
-    href: "projects/arduist",
-  },
-  {
-    title: "Zuhören",
-    href: "projects/zuhoeren",
-  },
-  {
-    title: "Nameless\nLand",
-    href: "projects/nameless-lands",
-  },
-  {
-    title: "Dreiund\nzwanzig",
-    href: "projects/dreiundzwanzig",
-  },
-  {
-    title: "About\nme",
-    href: "about",
-  },
-];
 
 export type HomeProps = {
   positions: { row: number; col: number }[];
@@ -56,6 +31,7 @@ export type HomeProps = {
 export default function Home({ positions }: HomeProps) {
   const router = useRouter();
   const { theme } = useTheme();
+  const isMobile = useIsMobile();
 
   const [coordinates, setCoordinates] = useState({ x: -100, y: 0 });
   const [canScale, setCanScale] = useState(true);
@@ -64,6 +40,8 @@ export default function Home({ positions }: HomeProps) {
 
   const [holeSize, animateHoleSize, setHoleSize] = useAnimatedValue(40);
   const [multiplier, setMultiplier] = useAnimatedValue(1);
+
+  if (isMobile) redirect("/projects", RedirectType.replace);
 
   let startAnimation = true;
   const queryParseResult = homeQuerySchema.safeParse(router.query);
@@ -152,7 +130,7 @@ export default function Home({ positions }: HomeProps) {
               key={title}
               href={href}
               className={cn(
-                "col-span-2 cursor-none p-4 font-heading text-3xl font-bold uppercase transition-all duration-700 ease-in-out hover:-skew-x-[22deg]",
+                "col-span-2 cursor-none p-4 font-heading text-sm font-bold uppercase transition-all duration-700 ease-in-out hover:-skew-x-[22deg] md:text-2xl lg:text-3xl",
                 { "break-words": col === 7 },
                 projectColors[row - 1],
               )}
@@ -176,22 +154,6 @@ export default function Home({ positions }: HomeProps) {
             </Link>
           );
         })}
-        {/*<div*/}
-        {/*  className="pointer-events-none absolute inset-0 z-10"*/}
-        {/*  style={{*/}
-        {/*    backgroundImage: `radial-gradient(circle ${*/}
-        {/*      holeSize * multiplier*/}
-        {/*    }px at ${coordinates.x}px ${*/}
-        {/*      coordinates.y*/}
-        {/*    }px, transparent 80%, hsl(var(--background)) 100%)`,*/}
-        {/*  }}*/}
-        {/*/>*/}
-        {/*<div*/}
-        {/*  className="pointer-events-none absolute inset-0 z-10"*/}
-        {/*  style={{*/}
-        {/*    backgroundImage: `radial-gradient(circle ${holeSize}vw * ${multiplier}px at ${coordinates.x}px ${coordinates.y}px, transparent 80%, hsl(var(--background)) 100%)`,*/}
-        {/*  }}*/}
-        {/*/>*/}
         <div
           className="pointer-events-none absolute inset-0 z-10"
           style={{
@@ -207,7 +169,7 @@ export default function Home({ positions }: HomeProps) {
   );
 }
 
-export function getServerSideProps() {
+export function getServerSideProps(context: GetServerSidePropsContext) {
   const rows = shuffle(
     Array.from({ length: projects.length }, (_, i) => i + 1),
   );
@@ -216,5 +178,13 @@ export function getServerSideProps() {
   );
   const positions = rows.map((row, index) => ({ row, col: cols[index] }));
 
-  return { props: { positions } };
+  const isSsrMobile = getIsSsrMobile(context);
+  if (isSsrMobile)
+    return {
+      redirect: {
+        destination: "/projects",
+        permanent: false,
+      },
+    };
+  return { props: { positions, isSsrMobile } };
 }

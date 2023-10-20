@@ -9,7 +9,7 @@ const images = [
   {
     src: "/images/arduist/design.png",
     alt: "Design drawings",
-    className: "col-span-2",
+    className: "col-span-1 md:col-span-2",
   },
   {
     src: "/images/arduist/machine-front.jpg",
@@ -73,7 +73,7 @@ export default function ArduistPage() {
             </Link>
           </p>
         </div>
-        <div className={"relative w-2/3 items-center justify-center"}>
+        <div className={"relative w-full items-center justify-center md:w-2/3"}>
           <Image
             className={"!relative object-cover"}
             src={"/images/arduist/app.png"}
@@ -82,7 +82,7 @@ export default function ArduistPage() {
             sizes="(min-width: 1024px) 33vw, 100vw"
           />
         </div>
-        <div className="grid h-full w-full grid-cols-1 gap-12 gap-y-20 p-6 lg:grid-cols-2">
+        <div className="grid h-full w-full grid-cols-1 gap-y-20 md:gap-12 md:p-6 lg:grid-cols-2">
           {images.map((image) => (
             <div
               key={image.src}

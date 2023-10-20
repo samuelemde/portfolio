@@ -57,7 +57,11 @@ export default function NamelessLandsPage() {
             exhibited at GLOBALE: inSonic2015 @ZKM Karlsruhe
           </p>
         </div>
-        <div className={"relative w-2/3 flex-col items-center justify-center"}>
+        <div
+          className={
+            "relative w-full flex-col items-center justify-center md:w-2/3"
+          }
+        >
           <Image
             className={"!relative w-full object-contain"}
             src={"/images/namelesslands/gameplay.png"}

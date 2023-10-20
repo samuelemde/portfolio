@@ -2,10 +2,14 @@ import "~/styles/globals.css";
 import Layout from "~/components/Layout";
 import { ThemeProvider } from "next-themes";
 import { ProjectCardsProvider } from "~/contexts/ProjectCardsContext";
-import { type AppPropsType } from "next/dist/shared/lib/utils";
 import { HeaderContextProvider } from "~/contexts/HeaderContext";
+import { IsSsrMobileContext } from "~/contexts/SsrMobileContext";
+import { type AppProps } from "next/app";
 
-export default function MyApp({ Component, pageProps }: AppPropsType) {
+export default function MyApp({
+  Component,
+  pageProps,
+}: AppProps<{ isSsrMobile: boolean }>) {
   return (
     <ThemeProvider
       attribute="class"
@@ -15,11 +19,13 @@ export default function MyApp({ Component, pageProps }: AppPropsType) {
       themes={["light", "dark", "system", "neon"]}
     >
       <Layout>
-        <HeaderContextProvider>
-          <ProjectCardsProvider>
-            <Component {...pageProps} />
-          </ProjectCardsProvider>
-        </HeaderContextProvider>
+        <IsSsrMobileContext.Provider value={pageProps.isSsrMobile}>
+          <HeaderContextProvider>
+            <ProjectCardsProvider>
+              <Component {...pageProps} />
+            </ProjectCardsProvider>
+          </HeaderContextProvider>
+        </IsSsrMobileContext.Provider>
       </Layout>
     </ThemeProvider>
   );

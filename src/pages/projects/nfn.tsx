@@ -107,11 +107,11 @@ export default function NFNPage() {
         </div>
         <Video videoId="ce8bo7LgeYo" autoplay={true} />
         {/* ------ Example ------*/}
-        <div className="w-1/2">
+        <div className="w-full md:w-2/3 lg:w-1/2">
           <h2 className="font-heading text-3xl uppercase italic">Example</h2>
           <p className="pt-4 text-lg tracking-wider">
             This example demonstrates the possibility of “looking around the
-            corner” by combining the dashcam footage from multiple vehicles.
+            corner” by combining the dash cam footage from multiple vehicles.
           </p>
           <p className="pt-4 text-lg tracking-wider">
             Image #1 is taken from a vehicle approaching an intersection. Due to

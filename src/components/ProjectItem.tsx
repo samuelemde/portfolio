@@ -1,11 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import { ProjectCardsContext } from "~/contexts/ProjectCardsContext";
 import { cn } from "~/lib/utils";
 import { AspectRatio } from "@radix-ui/react-aspect-ratio";
 import { useRouter } from "next/router";
 import { HeaderContext } from "~/contexts/HeaderContext";
+import { useVisibilityCheck } from "~/lib/hooks/useVisibilityCheck";
 
 export type ProjectItemProps = {
   src: string;
@@ -15,8 +16,11 @@ export type ProjectItemProps = {
 
 export default function ProjectItem({ src, title, href }: ProjectItemProps) {
   const router = useRouter();
-  const { isOpen, setIsOpen } = useContext(ProjectCardsContext);
   const { animate } = useContext(HeaderContext);
+  const { isOpen, setIsOpen } = useContext(ProjectCardsContext);
+
+  const itemRef = useRef(null);
+  const isVisible = useVisibilityCheck(itemRef);
 
   useEffect(() => {
     setIsOpen(true);
@@ -31,6 +35,7 @@ export default function ProjectItem({ src, title, href }: ProjectItemProps) {
 
   return (
     <AspectRatio
+      ref={itemRef}
       ratio={1}
       className="group relative h-0 w-full min-w-[300px] overflow-hidden rounded-full pb-[100%]"
     >
@@ -47,10 +52,18 @@ export default function ProjectItem({ src, title, href }: ProjectItemProps) {
         className="rounded-full object-cover p-px"
         sizes="(min-width: 1024px) 33.33vw, (min-width: 768px) 50vw, 100vw"
       />
-      <div className="absolute inset-px rounded-full bg-black bg-opacity-0 transition group-hover:bg-opacity-20" />
+      <div
+        className={cn(
+          "absolute inset-px rounded-full bg-black bg-opacity-0 transition group-hover:bg-opacity-25",
+          { "bg-opacity-25 sm:bg-opacity-0": isVisible },
+        )}
+      />
       <Link
         href="#"
-        className="absolute inset-0 flex cursor-pointer items-center justify-center rounded-full opacity-0 transition group-hover:opacity-100"
+        className={cn(
+          "absolute inset-0 flex cursor-pointer items-center justify-center rounded-full opacity-0 transition group-hover:opacity-100",
+          { "opacity-100 sm:opacity-0": isVisible },
+        )}
         onClick={(event) => handleClick(event, href)}
       >
         <h3 className="whitespace-pre-line text-center font-heading text-3xl font-bold uppercase italic text-projectfg">
