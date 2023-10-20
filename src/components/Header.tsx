@@ -66,10 +66,11 @@ export default function Header({
         <Link
           href={"#"}
           className={cn(
-            "hover:shadow-inverse cursor-none rounded-3xl py-1 pl-1 pr-2 font-heading text-3xl uppercase italic duration-700 hover:bg-inversebg hover:text-inversefg md:pl-4 md:pr-6 md:text-4xl",
+            "hover:shadow-inverse max-w-[279px] cursor-none rounded-3xl py-1 pl-1 pr-3 font-heading text-3xl uppercase italic transition-none duration-700 ease-in-out hover:bg-inversebg hover:text-inversefg md:max-w-[352px] md:pl-4 md:pr-6 md:text-4xl",
             titleColor,
+            spacing,
+            transition,
           )}
-          style={{ transition, letterSpacing: spacing }}
           onClick={handleTitleClick}
           onMouseEnter={onMouseEnter}
           onMouseLeave={onMouseLeave}

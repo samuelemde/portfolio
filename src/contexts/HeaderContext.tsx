@@ -32,23 +32,23 @@ export function HeaderContextProvider({
       ? "Samuel Emde"
       : "SE",
   );
-  const [spacing, setSpacing] = useState("0.1rem");
-  const [transition, setTransition] = useState("none");
+  const [spacing, setSpacing] = useState("tracking-[0.1rem]");
+  const [transition, setTransition] = useState("transition-none");
 
   const animate = () => {
     if (title === "Samuel Emde") {
       setTitle("SE");
-      setSpacing("10.3rem");
-      setTransition("none");
+      setTransition("transition-none");
+      setSpacing("tracking-[8.73rem] md:tracking-[10.32rem]");
       setTimeout(() => {
-        setSpacing("0.1rem");
-        setTransition("letter-spacing 0.5s ease-in-out");
+        setTransition("transition-spacing");
+        setSpacing("tracking-[0.1rem]");
       }, 0);
     } else {
-      setSpacing("10.3rem");
+      setSpacing("tracking-[8.73rem] md:tracking-[10.32rem]");
       setTimeout(() => {
-        setTransition("none");
-        setSpacing("0.1rem");
+        setTransition("transition-none");
+        setSpacing("tracking-[0.1rem]");
         setTitle("Samuel Emde");
       }, 700);
     }
