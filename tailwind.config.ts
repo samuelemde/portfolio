@@ -97,7 +97,7 @@ module.exports = {
         14: "repeat(14, minmax(0, 1fr))",
       },
       boxShadow: {
-        inverse: "0px 8px 15px 2px var(--shadow)",
+        inverse: "-1px 8px 20px 2px var(--shadow)",
       },
       transitionProperty: {
         width: "width, height",
