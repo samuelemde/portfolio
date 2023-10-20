@@ -16,7 +16,7 @@ export default function DreiundzwanzigPage() {
 
   return (
     <>
-      <Header titleColorClass={titleColor} />
+      <Header titleColorClass={titleColor} initialTitle={"SE"} />
       <FullBleed
         src={"/images/dreiundzwanzig/amorph.jpg"}
         title={"Dreiundzwanzig"}

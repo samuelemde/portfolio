@@ -38,7 +38,7 @@ const projects = [
 export default function ProjectsPage() {
   return (
     <>
-      <Header />
+      <Header initialTitle={"Samuel Emde"} />
       <div className="flex justify-center p-8 py-44">
         <div className="grid h-fit w-full grid-cols-1 gap-16 md:grid-cols-2 lg:grid-cols-3">
           {projects.map((project) => {

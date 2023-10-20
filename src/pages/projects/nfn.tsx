@@ -39,7 +39,7 @@ export default function NFNPage() {
 
   return (
     <>
-      <Header titleColorClass={titleColor} />
+      <Header titleColorClass={titleColor} initialTitle={"SE"} />
       <FullBleed
         src={"/images/nfn/dispmap3.jpg"}
         title={"Mobile Data Upload For NFN Edge Computing"}

@@ -1,6 +1,5 @@
 import Image from "next/image";
 import React, { useContext, useEffect } from "react";
-import useAnimatedValue from "~/lib/hooks/useAnimatedValue";
 import { cn, projectColors } from "~/lib/utils";
 import { ProjectCardsContext } from "~/contexts/ProjectCardsContext";
 
@@ -17,7 +16,6 @@ export default function FullBleed({
   opacity = 0,
   titleColorClass,
 }: BleedProps) {
-  const [size, setSize] = useAnimatedValue(0);
   const { isOpen, setIsOpen } = useContext(ProjectCardsContext);
 
   const titleColor =
@@ -26,18 +24,13 @@ export default function FullBleed({
       : "text-projectfg";
 
   useEffect(() => {
-    if (!isOpen) setSize(0, 200);
-    else setSize(window.innerWidth, 500);
-  }, [isOpen, setSize]);
-
-  useEffect(() => {
     setIsOpen(true);
   }, []);
 
   return (
     <div className="relative h-[100vh] rounded-full">
       <Image
-        className="h-full w-full rounded-full object-cover object-center"
+        className="h-full w-full rounded-full object-cover object-center p-px"
         src={src}
         alt="Full bleed image"
         fill
@@ -57,10 +50,10 @@ export default function FullBleed({
         {title}
       </h1>
       <div
-        className="pointer-events-none absolute inset-0 z-10 cursor-none"
-        style={{
-          backgroundImage: `radial-gradient(circle ${size}px at center, transparent 0%, transparent 95%, hsl(var(--background)) 100%)`,
-        }}
+        className={cn(
+          "transition-border pointer-events-none absolute inset-0 left-[50%] top-[50%] z-10 h-full w-full translate-x-[-50%] translate-y-[-50%] transform cursor-none rounded-full border-[50cqw] border-background duration-700",
+          { "border-0": isOpen },
+        )}
       />
     </div>
   );

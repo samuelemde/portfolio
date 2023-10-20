@@ -20,7 +20,7 @@ export default function EmbracePage() {
 
   return (
     <>
-      <Header titleColorClass={titleColor} />
+      <Header titleColorClass={titleColor} initialTitle={"SE"} />
       <FullBleed
         src={"/images/embrace/embrace1.jpeg"}
         title={"Embrace"}

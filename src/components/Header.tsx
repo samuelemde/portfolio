@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
@@ -11,28 +11,34 @@ const ThemeSwitcher = dynamic(() => import("~/components/ThemeSwitcher"), {
 });
 
 export type HeaderProps = {
+  initialTitle?: string;
   onMouseEnter?: () => void;
   onMouseLeave?: () => void;
   titleColorClass?: string;
 };
 
 export default function Header({
+  initialTitle,
   onMouseEnter,
   onMouseLeave,
   titleColorClass,
 }: HeaderProps) {
   const router = useRouter();
   const { setIsOpen } = useContext(ProjectCardsContext);
-  const { spacing, transition, title, animate } = useContext(HeaderContext);
+  const { spacing, transition, title, setTitle, animate } =
+    useContext(HeaderContext);
 
   const titleColor =
     titleColorClass && projectColors.includes(titleColorClass)
       ? titleColorClass
       : "text-foreground";
 
+  useEffect(() => {
+    if (initialTitle) setTitle(initialTitle);
+  }, []);
+
   const handleTitleClick = (e: React.MouseEvent) => {
     e.preventDefault();
-
     if (router.pathname === "/projects") {
       setIsOpen(false);
       setTimeout(() => void router.push("/"), 700);

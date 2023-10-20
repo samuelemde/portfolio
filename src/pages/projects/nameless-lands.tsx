@@ -10,7 +10,7 @@ export default function NamelessLandsPage() {
 
   return (
     <>
-      <Header titleColorClass={titleColor} />
+      <Header titleColorClass={titleColor} initialTitle={"SE"} />
       <FullBleed
         src={"/images/namelesslands/map-clean.jpg"}
         title={"Nameless Lands"}

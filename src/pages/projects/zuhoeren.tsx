@@ -10,7 +10,7 @@ export default function ZuhoerenPage() {
 
   return (
     <>
-      <Header titleColorClass={titleColor} />
+      <Header titleColorClass={titleColor} initialTitle={"SE"} />
       <FullBleed
         src={"/images/zuhoeren/headphones2.jpeg"}
         title={"Zuhören"}

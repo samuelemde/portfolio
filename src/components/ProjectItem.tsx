@@ -5,6 +5,7 @@ import { ProjectCardsContext } from "~/contexts/ProjectCardsContext";
 import { cn } from "~/lib/utils";
 import { AspectRatio } from "@radix-ui/react-aspect-ratio";
 import { useRouter } from "next/router";
+import { HeaderContext } from "~/contexts/HeaderContext";
 
 export type ProjectItemProps = {
   src: string;
@@ -15,6 +16,7 @@ export type ProjectItemProps = {
 export default function ProjectItem({ src, title, href }: ProjectItemProps) {
   const router = useRouter();
   const { isOpen, setIsOpen } = useContext(ProjectCardsContext);
+  const { animate } = useContext(HeaderContext);
 
   useEffect(() => {
     setIsOpen(true);
@@ -22,6 +24,7 @@ export default function ProjectItem({ src, title, href }: ProjectItemProps) {
 
   const handleClick = (e: React.MouseEvent, href: string) => {
     e.preventDefault();
+    animate();
     setIsOpen(false);
     setTimeout(() => void router.push(href), 700);
   };
@@ -41,10 +44,10 @@ export default function ProjectItem({ src, title, href }: ProjectItemProps) {
         src={src}
         alt={title}
         fill
-        className="rounded-full object-cover p-1"
+        className="rounded-full object-cover p-px"
         sizes="(min-width: 1024px) 33.33vw, (min-width: 768px) 50vw, 100vw"
       />
-      <div className="absolute inset-1 rounded-full bg-black bg-opacity-0 transition group-hover:bg-opacity-20" />
+      <div className="absolute inset-px rounded-full bg-black bg-opacity-0 transition group-hover:bg-opacity-20" />
       <Link
         href="#"
         className="absolute inset-0 flex cursor-pointer items-center justify-center rounded-full opacity-0 transition group-hover:opacity-100"

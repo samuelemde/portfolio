@@ -28,7 +28,7 @@ export default function ArduistPage() {
 
   return (
     <>
-      <Header titleColorClass={titleColor} />
+      <Header titleColorClass={titleColor} initialTitle={"SE"} />
       <FullBleed
         src={"/images/arduist/cover-full.png"}
         title={"Arduist"}
