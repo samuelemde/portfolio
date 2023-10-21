@@ -8,6 +8,8 @@ import { HeaderContext } from "~/contexts/HeaderContext";
 import { useIsMobile } from "~/lib/hooks/useIsMobile";
 import { type GetServerSidePropsContext } from "next";
 import { getIsSsrMobile } from "~/lib/mobileDetect";
+import { Button } from "~/components/ui/button";
+import { EyeClosedIcon, EyeOpenIcon } from "@radix-ui/react-icons";
 
 const ThemeSwitcher = dynamic(() => import("~/components/ThemeSwitcher"), {
   ssr: false,
@@ -18,6 +20,7 @@ export type HeaderProps = {
   onMouseEnter?: () => void;
   onMouseLeave?: () => void;
   titleColorClass?: string;
+  isSsrMobile?: boolean;
 };
 
 export default function Header({
@@ -25,6 +28,7 @@ export default function Header({
   onMouseEnter,
   onMouseLeave,
   titleColorClass,
+  isSsrMobile,
 }: HeaderProps) {
   const router = useRouter();
   const isMobile = useIsMobile();
@@ -43,12 +47,10 @@ export default function Header({
 
   const handleTitleClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    if (router.pathname === "/projects") {
+    if (router.pathname === "/" || router.pathname === "/projects") {
       setIsOpen(false);
-      if (isMobile) animate();
-      setTimeout(() => void router.push(isMobile ? "/about" : "/"), 700);
-    } else if (router.pathname === "/") {
-      void router.push("/projects");
+      animate();
+      setTimeout(() => void router.push("/about"), 700);
     } else {
       setIsOpen(false);
       animate();
@@ -56,9 +58,19 @@ export default function Header({
     }
   };
 
+  const handleEyeClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (router.pathname === "/") {
+      void router.push("/projects");
+    } else if (router.pathname === "/projects") {
+      setIsOpen(false);
+      setTimeout(() => void router.push("/"), 700);
+    }
+  };
+
   return (
     <>
-      <div className="absolute left-0 right-0 top-0 z-30 flex items-center justify-between px-4 py-3 md:px-8 md:py-6">
+      <div className="absolute left-0 right-0 top-0 z-30 flex items-center justify-between px-4 py-3 sm:px-8 sm:py-6">
         <Link
           href={"#"}
           className={cn(
@@ -73,16 +85,36 @@ export default function Header({
         >
           {title}
         </Link>
-
-        <ThemeSwitcher
-          size="1.8rem"
-          className={cn(
-            "hover:shadow-inverse cursor-none rounded-full duration-0 hover:bg-inversebg hover:text-inversefg",
-            titleColor,
+        <div className="flex flex-row">
+          {!isSsrMobile && !isMobile && (
+            <Button
+              className="hover:shadow-inverse cursor-none rounded-full duration-0 hover:bg-inversebg hover:text-inversefg"
+              variant="none"
+              size="icon"
+              onMouseEnter={onMouseEnter}
+              onMouseLeave={onMouseLeave}
+              onClick={handleEyeClick}
+            >
+              <EyeClosedIcon
+                style={{ height: "1.8rem", width: "1.8rem" }}
+                className={cn({ hidden: router.pathname !== "/" })}
+              />
+              <EyeOpenIcon
+                style={{ height: "1.8rem", width: "1.8rem" }}
+                className={cn({ hidden: router.pathname !== "/projects" })}
+              />
+            </Button>
           )}
-          onMouseEnter={onMouseEnter}
-          onMouseLeave={onMouseLeave}
-        />
+          <ThemeSwitcher
+            size="1.8rem"
+            className={cn(
+              "hover:shadow-inverse cursor-none rounded-full duration-0 hover:bg-inversebg hover:text-inversefg",
+              titleColor,
+            )}
+            onMouseEnter={onMouseEnter}
+            onMouseLeave={onMouseLeave}
+          />
+        </div>
       </div>
     </>
   );

@@ -38,4 +38,5 @@ export const projectColors = [
   "text-project5",
   "text-project6",
   "text-project7",
+  "text-project8",
 ];

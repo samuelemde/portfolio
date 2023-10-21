@@ -10,7 +10,7 @@ const images = [
   {
     src: "/images/arduist/design.png",
     alt: "Design drawings",
-    className: "col-span-1 md:col-span-2",
+    className: "col-span-1 lg:col-span-2",
   },
   {
     src: "/images/arduist/machine-front.jpg",
@@ -87,6 +87,7 @@ export default function ArduistPage() {
               key={image.src}
               src={image.src}
               alt={image.alt}
+              className={image.className}
               sizes={"(min-width: 1024px) 50vw, 100vw"}
             />
           ))}

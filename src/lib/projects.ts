@@ -1,3 +1,8 @@
+export type LinkType = {
+  title: string;
+  href: string;
+};
+
 export const projects = {
   nfn: {
     title: "Named<br/>Function<br/>Networking",
@@ -36,3 +41,9 @@ export const projects = {
     href: "projects/dreiundzwanzig",
   },
 };
+export const links: LinkType[] = Object.values(projects).map(
+  ({ title, href }) => ({
+    title,
+    href,
+  }),
+);

@@ -34,6 +34,7 @@ module.exports = {
         project5: "hsl(var(--project-5))",
         project6: "hsl(var(--project-6))",
         project7: "hsl(var(--project-7))",
+        project8: "hsl(var(--project-8))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
@@ -88,6 +89,7 @@ module.exports = {
         breathing: "breathing 7s infinite ease-in-out",
       },
       gridTemplateRows: {
+        7: "repeat(7, minmax(0, 1fr))",
         8: "repeat(8, minmax(0, 1fr))",
         9: "repeat(9, minmax(0, 1fr))",
         10: "repeat(10, minmax(0, 1fr))",

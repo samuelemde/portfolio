@@ -7,14 +7,21 @@ import { AspectRatio } from "@radix-ui/react-aspect-ratio";
 import { useRouter } from "next/router";
 import { HeaderContext } from "~/contexts/HeaderContext";
 import { useVisibilityCheck } from "~/lib/hooks/useVisibilityCheck";
+import { useIsMobile } from "~/lib/hooks/useIsMobile";
 
 export type ProjectItemProps = {
   src: string;
   title: string;
   href: string;
+  isSsrMobile?: boolean;
 };
 
-export default function ProjectItem({ src, title, href }: ProjectItemProps) {
+export default function ProjectItem({
+  src,
+  title,
+  href,
+  isSsrMobile,
+}: ProjectItemProps) {
   const router = useRouter();
   const { animate } = useContext(HeaderContext);
   const { isOpen, setIsOpen } = useContext(ProjectCardsContext);
@@ -38,7 +45,7 @@ export default function ProjectItem({ src, title, href }: ProjectItemProps) {
       ref={itemRef}
       ratio={1}
       className={cn(
-        "group relative m-auto h-0 w-full min-w-[300px] overflow-hidden rounded-full pb-[100%] transition-all duration-700",
+        "group relative m-auto h-0 w-full  overflow-hidden rounded-full pb-[100%] transition-all duration-700",
         { "w-0 min-w-0 pb-0": !isOpen },
       )}
     >
@@ -54,7 +61,7 @@ export default function ProjectItem({ src, title, href }: ProjectItemProps) {
         className={cn(
           "absolute inset-px flex cursor-pointer items-center justify-center rounded-full bg-black bg-opacity-0 opacity-0 transition group-hover:bg-opacity-25 group-hover:opacity-100",
           {
-            "bg-opacity-25 opacity-100 sm:bg-opacity-0 sm:opacity-0": isVisible,
+            "bg-opacity-25 opacity-100": isVisible && isSsrMobile,
           },
         )}
         onClick={(event) => handleClick(event, href)}

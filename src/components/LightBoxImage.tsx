@@ -5,12 +5,14 @@ import {
   DialogTrigger,
 } from "~/components/ui/dialog";
 import Image from "next/image";
+import { cn } from "~/lib/utils";
 
 export type LightBoxProps = {
   src: string;
   alt: string;
   sizes: string;
   renderAlt?: boolean;
+  className?: string;
 };
 
 export default function LightBoxImage({
@@ -18,11 +20,12 @@ export default function LightBoxImage({
   alt,
   sizes,
   renderAlt = false,
+  className = "",
 }: LightBoxProps) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <div className="relative h-full w-full">
+        <div className={cn("relative h-full w-full", className)}>
           <Image
             className={"!relative w-full cursor-pointer object-cover"}
             src={src}

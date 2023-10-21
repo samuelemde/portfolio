@@ -5,7 +5,7 @@ import { IsSsrMobileContext } from "~/contexts/SsrMobileContext";
 export const useIsMobile = () => {
   const isSsrMobile = useContext(IsSsrMobileContext);
   const { width } = useWindowSize();
-  const isBrowserMobile = !!width && width < 768;
+  const isBrowserMobile = !!width && width < 640;
 
   return isSsrMobile || isBrowserMobile;
 };
