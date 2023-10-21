@@ -109,7 +109,7 @@ export default function Home({ positions }: HomeProps) {
     e.preventDefault();
     animate();
     setIsFrozen(true);
-    animateHoleSize(0, 250);
+    animateHoleSize(0.01, 250);
     setTimeout(() => {
       void router.push({
         pathname: url,
@@ -129,7 +129,7 @@ export default function Home({ positions }: HomeProps) {
     <div className="relative">
       <Header
         initialTitle={"Samuel Emde"}
-        onMouseEnter={() => setMultiplier(0, 100)}
+        onMouseEnter={() => setMultiplier(0.01, 100)}
         onMouseLeave={() => setMultiplier(1, 100)}
       />
       <div className="grid-rows-7 relative grid h-screen w-screen cursor-none grid-cols-8 items-center justify-center bg-inversebg pt-24">
