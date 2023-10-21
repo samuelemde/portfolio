@@ -12,14 +12,14 @@ export default function MyApp({
   pageProps,
 }: AppProps<{ isSsrMobile: boolean }>) {
   return (
-    <ThemeProvider
-      attribute="class"
-      defaultTheme="system"
-      enableSystem
-      disableTransitionOnChange
-      themes={["light", "dark", "system", "neon"]}
-    >
-      <Layout>
+    <Layout>
+      <ThemeProvider
+        attribute="class"
+        defaultTheme="system"
+        enableSystem
+        disableTransitionOnChange
+        themes={["light", "dark", "system", "neon"]}
+      >
         <IsSsrMobileContext.Provider value={pageProps.isSsrMobile}>
           <StartAnimationProvider>
             <HeaderContextProvider>
@@ -29,7 +29,7 @@ export default function MyApp({
             </HeaderContextProvider>
           </StartAnimationProvider>
         </IsSsrMobileContext.Provider>
-      </Layout>
-    </ThemeProvider>
+      </ThemeProvider>
+    </Layout>
   );
 }

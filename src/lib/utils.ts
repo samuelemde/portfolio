@@ -21,7 +21,9 @@ export function scale(
   newMin: number,
   newMax: number,
 ): number {
-  return ((value - min) / (max - min)) * (newMax - newMin) + newMin;
+  const scaledValue =
+    ((value - min) / (max - min)) * (newMax - newMin) + newMin;
+  return Math.min(Math.max(scaledValue, newMin), newMax);
 }
 
 export const projectQuerySchema = z.object({

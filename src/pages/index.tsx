@@ -7,16 +7,14 @@ import Header from "~/components/Header";
 import { useTheme } from "next-themes";
 import { HeaderContext } from "~/contexts/HeaderContext";
 import { projects } from "~/lib/projects";
-import { useIsMobile } from "~/lib/hooks/useIsMobile";
 import { type GetServerSidePropsContext } from "next";
 import { getIsSsrMobile } from "~/lib/mobileDetect";
-import { redirect } from "next/navigation";
-import { RedirectType } from "next/dist/client/components/redirect";
 import { StartAnimationContext } from "~/contexts/StartAnimationContext";
 
 const MIN_HOLE_SIZE = 20;
-const HIGHLIGHT_SIZE = 130;
 const MAX_HOLE_SIZE = 600;
+const MIN_HIGHLIGHT_SIZE = 80;
+const MAX_HIGHLIGHT_SIZE = 120;
 
 export type HomeProps = {
   positions: { row: number; col: number }[];
@@ -26,7 +24,6 @@ export type HomeProps = {
 export default function Home({ positions }: HomeProps) {
   const router = useRouter();
   const { theme } = useTheme();
-  const isMobile = useIsMobile();
 
   const [coordinates, setCoordinates] = useState({ x: -100, y: 0 });
   const [canScale, setCanScale] = useState(true);
@@ -37,16 +34,19 @@ export default function Home({ positions }: HomeProps) {
   const [holeSize, animateHoleSize, setHoleSize] = useAnimatedValue(40);
   const [multiplier, setMultiplier] = useAnimatedValue(1);
 
-  if (isMobile) redirect("/projects", RedirectType.replace);
-
   useEffect(() => {
     if (isFirstLoad) {
+      setCanScale(false);
       animateHoleSize(40, 1500, window.innerHeight / 1.2);
       setCoordinates({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
-      setIsFirstLoad(false);
+      setTimeout(() => {
+        setCanScale(true);
+        setIsFirstLoad(false);
+      }, 1500);
     }
   }, []);
 
+  console.log("CAN SCALE", canScale);
   useEffect(() => {
     document.documentElement.classList.add("cursor-none");
 
@@ -82,7 +82,25 @@ export default function Home({ positions }: HomeProps) {
     return () => {
       window.removeEventListener("wheel", handleScroll);
     };
-  }, [holeSize, setHoleSize, canScale]);
+  }, [holeSize, setHoleSize, canScale, isFrozen]);
+
+  const handleMouseEnter = () => {
+    if (!canScale) return;
+    setCanScale(false);
+    const newHoleSize = scale(
+      window.innerWidth,
+      300,
+      1024,
+      MIN_HIGHLIGHT_SIZE,
+      MAX_HIGHLIGHT_SIZE,
+    );
+    setMultiplier(newHoleSize / holeSize, getScaledDuration());
+  };
+
+  const handleMouseLeave = () => {
+    setCanScale(true);
+    setMultiplier(1, getScaledDuration());
+  };
 
   const handleClick = (
     e: React.MouseEvent,
@@ -104,7 +122,7 @@ export default function Home({ positions }: HomeProps) {
 
   // the bigger the diff in holeSize, the longer the transition
   const getScaledDuration = () => {
-    const value = Math.abs(holeSize - HIGHLIGHT_SIZE);
+    const value = Math.abs(holeSize - MAX_HIGHLIGHT_SIZE);
     return scale(value, 0, MAX_HOLE_SIZE - MIN_HOLE_SIZE, 100, 300);
   };
 
@@ -124,7 +142,7 @@ export default function Home({ positions }: HomeProps) {
               key={title}
               href={href}
               className={cn(
-                "col-span-2 cursor-none p-4 font-heading text-sm font-bold uppercase transition-all duration-700 ease-in-out hover:-skew-x-[22deg] md:text-2xl lg:text-3xl",
+                "col-span-2 cursor-none p-4 font-heading text-xl font-bold uppercase transition-all duration-700 ease-in-out hover:-skew-x-[22deg] md:text-2xl lg:text-3xl",
                 { "break-words": col === 7 },
                 projectColors[row - 1],
               )}
@@ -132,14 +150,8 @@ export default function Home({ positions }: HomeProps) {
                 gridRowStart: row,
                 gridColumnStart: col,
               }}
-              onMouseEnter={() => {
-                setCanScale(false);
-                setMultiplier(HIGHLIGHT_SIZE / holeSize, getScaledDuration());
-              }}
-              onMouseLeave={() => {
-                setCanScale(true);
-                setMultiplier(1, getScaledDuration());
-              }}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
               onClick={(event) =>
                 handleClick(event, href, projectColors[row - 1]!)
               }
@@ -171,6 +183,7 @@ export function getServerSideProps(context: GetServerSidePropsContext) {
   const positions = rows.map((row, index) => ({ row, col: cols[index] }));
 
   const isSsrMobile = getIsSsrMobile(context);
+
   if (isSsrMobile)
     return {
       redirect: {

@@ -109,7 +109,9 @@ export default function NFNPage() {
         <Video videoId="ce8bo7LgeYo" autoplay={true} />
         {/* ------ Example ------*/}
         <div className="w-full md:w-2/3 lg:w-1/2">
-          <h2 className="font-heading text-3xl uppercase italic">Example</h2>
+          <h2 className="font-heading text-3xl uppercase italic">
+            Example: Mobile Data Upload For NFN Edge Computing
+          </h2>
           <p className="pt-4 text-lg tracking-wider">
             This example demonstrates the possibility of “looking around the
             corner” by combining the dash cam footage from multiple vehicles.
