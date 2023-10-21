@@ -1,13 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import Link from "next/link";
 import useAnimatedValue from "~/lib/hooks/useAnimatedValue";
-import {
-  cn,
-  homeQuerySchema,
-  projectColors,
-  scale,
-  shuffle,
-} from "~/lib/utils";
+import { cn, projectColors, scale, shuffle } from "~/lib/utils";
 import { useRouter } from "next/router";
 import Header from "~/components/Header";
 import { useTheme } from "next-themes";
@@ -18,6 +12,7 @@ import { type GetServerSidePropsContext } from "next";
 import { getIsSsrMobile } from "~/lib/mobileDetect";
 import { redirect } from "next/navigation";
 import { RedirectType } from "next/dist/client/components/redirect";
+import { StartAnimationContext } from "~/contexts/StartAnimationContext";
 
 const MIN_HOLE_SIZE = 20;
 const HIGHLIGHT_SIZE = 130;
@@ -36,6 +31,7 @@ export default function Home({ positions }: HomeProps) {
   const [coordinates, setCoordinates] = useState({ x: -100, y: 0 });
   const [canScale, setCanScale] = useState(true);
   const [isFrozen, setIsFrozen] = useState(false);
+  const { isFirstLoad, setIsFirstLoad } = useContext(StartAnimationContext);
   const { animate } = useContext(HeaderContext);
 
   const [holeSize, animateHoleSize, setHoleSize] = useAnimatedValue(40);
@@ -43,15 +39,12 @@ export default function Home({ positions }: HomeProps) {
 
   if (isMobile) redirect("/projects", RedirectType.replace);
 
-  let startAnimation = true;
-  const queryParseResult = homeQuerySchema.safeParse(router.query);
-  if (queryParseResult.success)
-    startAnimation = queryParseResult.data.startAnimation;
-
   useEffect(() => {
-    if (!startAnimation) return;
-    animateHoleSize(40, 1500, window.innerHeight / 1.2);
-    setCoordinates({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
+    if (isFirstLoad) {
+      animateHoleSize(40, 1500, window.innerHeight / 1.2);
+      setCoordinates({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
+      setIsFirstLoad(false);
+    }
   }, []);
 
   useEffect(() => {

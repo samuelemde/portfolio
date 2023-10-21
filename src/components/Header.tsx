@@ -46,11 +46,7 @@ export default function Header({
     if (router.pathname === "/projects") {
       if (isMobile) return;
       setIsOpen(false);
-      setTimeout(
-        () =>
-          void router.push({ pathname: "/", query: { startAnimation: false } }),
-        700,
-      );
+      setTimeout(() => void router.push("/"), 700);
     } else if (router.pathname === "/") {
       void router.push("/projects");
     } else {

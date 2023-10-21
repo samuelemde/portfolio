@@ -5,6 +5,7 @@ import { ProjectCardsProvider } from "~/contexts/ProjectCardsContext";
 import { HeaderContextProvider } from "~/contexts/HeaderContext";
 import { IsSsrMobileContext } from "~/contexts/SsrMobileContext";
 import { type AppProps } from "next/app";
+import { StartAnimationProvider } from "~/contexts/StartAnimationContext";
 
 export default function MyApp({
   Component,
@@ -20,11 +21,13 @@ export default function MyApp({
     >
       <Layout>
         <IsSsrMobileContext.Provider value={pageProps.isSsrMobile}>
-          <HeaderContextProvider>
-            <ProjectCardsProvider>
-              <Component {...pageProps} />
-            </ProjectCardsProvider>
-          </HeaderContextProvider>
+          <StartAnimationProvider>
+            <HeaderContextProvider>
+              <ProjectCardsProvider>
+                <Component {...pageProps} />
+              </ProjectCardsProvider>
+            </HeaderContextProvider>
+          </StartAnimationProvider>
         </IsSsrMobileContext.Provider>
       </Layout>
     </ThemeProvider>

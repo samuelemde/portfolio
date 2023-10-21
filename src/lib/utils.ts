@@ -28,19 +28,6 @@ export const projectQuerySchema = z.object({
   titleColor: z.string().optional(),
 });
 
-export const booleanString = z
-  .string()
-  .refine((value) => value === "true" || value === "false", {
-    message: 'Must be "true" or "false"',
-  });
-
-export const homeQuerySchema = z.object({
-  startAnimation: booleanString
-    .optional()
-    .default("true")
-    .transform((value) => value === "true"),
-});
-
 export const projectColors = [
   "text-project1",
   "text-project2",
