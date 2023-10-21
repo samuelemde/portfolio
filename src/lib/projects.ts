@@ -1,8 +1,8 @@
 export const projects = {
   nfn: {
     title: "Named<br/>Function<br/>Networking",
-    previewImage: "/images/nfn/dispmap3.jpg",
-    coverImage: "/images/nfn/dispmap3.jpg",
+    previewImage: "/images/nfn/nfn.jpeg",
+    coverImage: "/images/nfn/nfn.jpeg",
     href: "projects/nfn",
   },
   embrace: {

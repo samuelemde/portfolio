@@ -29,14 +29,19 @@ export default function FullBleed({
 
   return (
     <div className="relative h-[100vh] rounded-full">
-      <Image
+      {/*<Image*/}
+      {/*  className="h-full w-full rounded-full object-cover object-center p-px"*/}
+      {/*  src={src}*/}
+      {/*  alt="Full bleed image"*/}
+      {/*  fill*/}
+      {/*  quality={100}*/}
+      {/*  priority={true}*/}
+      {/*  sizes={"100vw"}*/}
+      {/*/>*/}
+      <img
         className="h-full w-full rounded-full object-cover object-center p-px"
         src={src}
         alt="Full bleed image"
-        fill
-        quality={100}
-        priority={true}
-        sizes={"100vw"}
       />
       <h1
         dangerouslySetInnerHTML={{ __html: title }}

@@ -12,7 +12,7 @@ export default function AboutPage() {
   return (
     <>
       <Header titleColorClass={titleColor} />
-      <FullBleed src={"/images/samuelemde-warm.jpg"} title={""} />
+      <FullBleed src={"/images/samuelemde.jpeg"} title={""} />
       <div className="flex flex-col items-center justify-center gap-20 p-6 pb-40 pt-10">
         <div className="w-full md:w-2/3 lg:w-1/2">
           <h2 className="font-heading text-5xl uppercase italic">
