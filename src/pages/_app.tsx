@@ -6,6 +6,7 @@ import { HeaderContextProvider } from "~/contexts/HeaderContext";
 import { IsSsrMobileContext } from "~/contexts/SsrMobileContext";
 import { type AppProps } from "next/app";
 import { StartAnimationProvider } from "~/contexts/StartAnimationContext";
+import { Analytics } from "@vercel/analytics/react";
 
 export default function MyApp({
   Component,
@@ -25,6 +26,7 @@ export default function MyApp({
             <HeaderContextProvider>
               <ProjectCardsProvider>
                 <Component {...pageProps} />
+                <Analytics />
               </ProjectCardsProvider>
             </HeaderContextProvider>
           </StartAnimationProvider>
