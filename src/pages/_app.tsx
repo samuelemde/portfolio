@@ -10,10 +10,10 @@ import { Analytics } from "@vercel/analytics/react";
 
 export default function MyApp({
   Component,
-  pageProps,
-}: AppProps<{ isSsrMobile: boolean }>) {
+  pageProps: { isSsrMobile, showFooter = true, ...pageProps },
+}: AppProps<{ isSsrMobile: boolean; showFooter: boolean }>) {
   return (
-    <Layout>
+    <Layout showFooter={showFooter}>
       <ThemeProvider
         attribute="class"
         defaultTheme="system"
@@ -21,7 +21,7 @@ export default function MyApp({
         disableTransitionOnChange
         themes={["light", "dark", "system", "neon"]}
       >
-        <IsSsrMobileContext.Provider value={pageProps.isSsrMobile}>
+        <IsSsrMobileContext.Provider value={isSsrMobile}>
           <StartAnimationProvider>
             <HeaderContextProvider>
               <ProjectCardsProvider>

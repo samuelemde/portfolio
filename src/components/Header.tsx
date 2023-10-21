@@ -44,9 +44,9 @@ export default function Header({
   const handleTitleClick = (e: React.MouseEvent) => {
     e.preventDefault();
     if (router.pathname === "/projects") {
-      if (isMobile) return;
       setIsOpen(false);
-      setTimeout(() => void router.push("/"), 700);
+      if (isMobile) animate();
+      setTimeout(() => void router.push(isMobile ? "/about" : "/"), 700);
     } else if (router.pathname === "/") {
       void router.push("/projects");
     } else {

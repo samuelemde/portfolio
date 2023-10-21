@@ -1,10 +1,12 @@
 import Head from "next/head";
+import Footer from "~/components/Footer";
 
 export type LayoutProps = {
   children: React.ReactNode;
+  showFooter?: boolean;
 };
 
-export default function Layout({ children }: LayoutProps) {
+export default function Layout({ children, showFooter = true }: LayoutProps) {
   return (
     <>
       <Head>
@@ -14,6 +16,7 @@ export default function Layout({ children }: LayoutProps) {
         <link rel="icon" href="/favicon.png" />
       </Head>
       <div className="relative flex min-h-screen flex-col">{children}</div>
+      {showFooter && <Footer />}
     </>
   );
 }

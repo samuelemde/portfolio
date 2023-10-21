@@ -46,7 +46,6 @@ export default function Home({ positions }: HomeProps) {
     }
   }, []);
 
-  console.log("CAN SCALE", canScale);
   useEffect(() => {
     document.documentElement.classList.add("cursor-none");
 
@@ -134,30 +133,37 @@ export default function Home({ positions }: HomeProps) {
         onMouseLeave={() => setMultiplier(1, 100)}
       />
       <div className="grid-rows-7 relative grid h-screen w-screen cursor-none grid-cols-8 items-center justify-center bg-inversebg pt-24">
-        {Object.values(projects).map(({ title, href }, index) => {
-          const { row, col } = positions[index]!;
-          return (
-            <Link
-              dangerouslySetInnerHTML={{ __html: title }}
-              key={title}
-              href={href}
-              className={cn(
-                "col-span-2 cursor-none p-4 font-heading text-xl font-bold uppercase transition-all duration-700 ease-in-out hover:-skew-x-[22deg] md:text-2xl lg:text-3xl",
-                { "break-words": col === 7 },
-                projectColors[row - 1],
-              )}
-              style={{
-                gridRowStart: row,
-                gridColumnStart: col,
-              }}
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
-              onClick={(event) =>
-                handleClick(event, href, projectColors[row - 1]!)
-              }
-            />
-          );
-        })}
+        {Object.values(projects)
+          .concat({
+            title: "About Me",
+            previewImage: "/images/samuelemde.jpg",
+            coverImage: "/images/samuelemde.jpg",
+            href: "about",
+          })
+          .map(({ title, href }, index) => {
+            const { row, col } = positions[index]!;
+            return (
+              <Link
+                dangerouslySetInnerHTML={{ __html: title }}
+                key={title}
+                href={href}
+                className={cn(
+                  "col-span-2 cursor-none p-4 font-heading text-xl font-bold uppercase transition-all duration-700 ease-in-out hover:-skew-x-[22deg] md:text-2xl lg:text-3xl",
+                  { "break-words": col === 7 },
+                  projectColors[row - 1],
+                )}
+                style={{
+                  gridRowStart: row,
+                  gridColumnStart: col,
+                }}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+                onClick={(event) =>
+                  handleClick(event, href, projectColors[row - 1]!)
+                }
+              />
+            );
+          })}
         <div
           className="pointer-events-none absolute inset-0 z-10"
           style={{
@@ -175,10 +181,10 @@ export default function Home({ positions }: HomeProps) {
 
 export function getServerSideProps(context: GetServerSidePropsContext) {
   const rows = shuffle(
-    Array.from({ length: Object.keys(projects).length }, (_, i) => i + 1),
+    Array.from({ length: Object.keys(projects).length + 1 }, (_, i) => i + 1),
   );
   const cols = shuffle(
-    Array.from({ length: Object.keys(projects).length }, (_, i) => i + 1),
+    Array.from({ length: Object.keys(projects).length + 1 }, (_, i) => i + 1),
   );
   const positions = rows.map((row, index) => ({ row, col: cols[index] }));
 
@@ -191,5 +197,5 @@ export function getServerSideProps(context: GetServerSidePropsContext) {
         permanent: false,
       },
     };
-  return { props: { positions, isSsrMobile } };
+  return { props: { positions, isSsrMobile, showFooter: false } };
 }
