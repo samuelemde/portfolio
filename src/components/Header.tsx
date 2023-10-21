@@ -10,6 +10,7 @@ import { type GetServerSidePropsContext } from "next";
 import { getIsSsrMobile } from "~/lib/mobileDetect";
 import { Button } from "~/components/ui/button";
 import { EyeClosedIcon, EyeOpenIcon } from "@radix-ui/react-icons";
+import { IsSsrMobileContext } from "~/contexts/SsrMobileContext";
 
 const ThemeSwitcher = dynamic(() => import("~/components/ThemeSwitcher"), {
   ssr: false,
@@ -28,10 +29,10 @@ export default function Header({
   onMouseEnter,
   onMouseLeave,
   titleColorClass,
-  isSsrMobile,
 }: HeaderProps) {
   const router = useRouter();
   const isMobile = useIsMobile();
+  const isSsrMobile = useContext(IsSsrMobileContext);
   const { setIsOpen } = useContext(ProjectCardsContext);
   const { spacing, transition, title, setTitle, animate } =
     useContext(HeaderContext);
@@ -85,8 +86,8 @@ export default function Header({
         >
           {title}
         </Link>
-        <div className="flex flex-row">
-          {!isSsrMobile && !isMobile && (
+        <div className="flex flex-row gap-2">
+          {!isSsrMobile && (
             <Button
               className="hover:shadow-inverse cursor-none rounded-full duration-0 hover:bg-inversebg hover:text-inversefg"
               variant="none"

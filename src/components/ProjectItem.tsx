@@ -7,7 +7,6 @@ import { AspectRatio } from "@radix-ui/react-aspect-ratio";
 import { useRouter } from "next/router";
 import { HeaderContext } from "~/contexts/HeaderContext";
 import { useVisibilityCheck } from "~/lib/hooks/useVisibilityCheck";
-import { useIsMobile } from "~/lib/hooks/useIsMobile";
 
 export type ProjectItemProps = {
   src: string;

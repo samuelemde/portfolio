@@ -1,15 +1,14 @@
 import ProjectItem from "~/components/ProjectItem";
 import Header from "~/components/Header";
-import React from "react";
+import React, { useContext } from "react";
 import { projects } from "~/lib/projects";
 import { getIsSsrMobile } from "~/lib/mobileDetect";
 import { type GetServerSidePropsContext } from "next";
+import { IsSsrMobileContext } from "~/contexts/SsrMobileContext";
 
-export default function ProjectsPage({
-  isSsrMobile,
-}: {
-  isSsrMobile?: boolean;
-}) {
+export default function ProjectsPage() {
+  const isSsrMobile = useContext(IsSsrMobileContext);
+
   return (
     <>
       <Header initialTitle={"Samuel Emde"} />
