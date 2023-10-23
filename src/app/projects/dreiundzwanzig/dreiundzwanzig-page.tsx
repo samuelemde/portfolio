@@ -68,7 +68,7 @@ export default function DreiundzwanzigPage({
             responsible for mixing the live recording for the video below.
           </p>
         </div>
-        <Video videoId="JAG4WF2SK_0" />
+        <Video videoId="JAG4WF2SK_0" title="Dreiundzwanzig live" />
       </div>
       <Footer />
     </>

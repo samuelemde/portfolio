@@ -46,7 +46,7 @@ export default function ZuhoerenPage({ isSsrMobile }: ZuhoerenPageProps) {
             exhibited at GLOBALE: inSonic2015 @ZKM Karlsruhe
           </p>
         </div>
-        <Video videoId="VK81aU05yFs" />
+        <Video videoId="VK81aU05yFs" title="Zuhören" />
       </div>
       <Footer />
     </>

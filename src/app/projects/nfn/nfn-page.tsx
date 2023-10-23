@@ -90,7 +90,10 @@ export default function NFNPage({ isSsrMobile, images }: NFNPageProps) {
             Tschudin
           </p>
         </div>
-        <Video videoId="ce8bo7LgeYo" autoplay={true} />
+        <Video
+          videoId="ce8bo7LgeYo"
+          title="Demo for mobile data upload for nfn edge computing"
+        />
         {/* ------ Example ------*/}
         <div className="w-full md:w-2/3 lg:w-1/2">
           <h2 className="font-heading text-3xl uppercase italic">

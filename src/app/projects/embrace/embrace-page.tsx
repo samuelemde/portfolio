@@ -62,7 +62,7 @@ export default function EmbracePage({ isSsrMobile, images }: EmbracePageProps) {
             - Kunsthaus Centre d’art Pasquart
           </p>
         </div>
-        <Video videoId="31YTCDtHvyo" />
+        <Video videoId="31YTCDtHvyo" title="Embrace 1" />
         {/* ------ Images ------*/}
         <div className="grid h-full w-full grid-cols-1 gap-12 gap-y-20 py-6 lg:grid-cols-2">
           {images.map((image) => (
@@ -94,7 +94,7 @@ export default function EmbracePage({ isSsrMobile, images }: EmbracePageProps) {
             reflection on our interaction with the world around us.
           </p>
         </div>
-        <Video videoId="XdFp7HbbmEs" />
+        <Video videoId="XdFp7HbbmEs" title="Embrace 2" />
       </div>
       <Footer />
     </>
