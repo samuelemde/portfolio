@@ -31,7 +31,7 @@ export const projects = {
       alt: "Embrace",
       previewImage: embraceImage,
       coverImage: embraceImage,
-      priority: false,
+      priority: true,
     },
   },
   arduist: {

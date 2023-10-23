@@ -3,6 +3,7 @@ import { Providers } from "~/components/Providers";
 import { Archivo_Black, Archivo_Narrow } from "next/font/google";
 import "~/styles/globals.css";
 import { type PropsWithChildren } from "react";
+import { Analytics } from "@vercel/analytics/react";
 
 const archivoBlack = Archivo_Black({
   weight: "400",
@@ -32,7 +33,10 @@ export default function RootLayout({ children }: PropsWithChildren) {
       style={{ colorScheme: "light" }}
     >
       <body>
-        <Providers>{children}</Providers>
+        <Providers>
+          {children}
+          <Analytics />
+        </Providers>
       </body>
     </html>
   );
