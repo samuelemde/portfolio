@@ -9,6 +9,7 @@ import Header from "~/components/Header";
 import { HeaderContext } from "~/contexts/HeaderContext";
 import { type LinkType } from "~/lib/projects";
 import { StartAnimationContext } from "~/contexts/StartAnimationContext";
+import { useTheme } from "next-themes";
 
 const MIN_HOLE_SIZE = 20;
 const MAX_HOLE_SIZE = 600;

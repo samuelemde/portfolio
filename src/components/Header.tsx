@@ -10,6 +10,7 @@ import { Button } from "~/components/ui/button";
 import { EyeClosedIcon, EyeOpenIcon } from "@radix-ui/react-icons";
 import ThemeSwitcher from "~/components/ThemeSwitcher";
 import { projectColors } from "~/lib/projectColors";
+import { useTheme } from "next-themes";
 
 export type HeaderProps = {
   initialTitle?: string;
@@ -28,13 +29,16 @@ export default function Header({
 }: HeaderProps) {
   const router = useRouter();
   const pathname = usePathname();
+  const { theme } = useTheme();
   // const isSsrMobile = useContext(IsSsrMobileContext);
   const { setIsOpen } = useContext(ProjectCardsContext);
   const { spacing, transition, title, setTitle, animate } =
     useContext(HeaderContext);
 
   const titleColor =
-    titleColorClass && projectColors.includes(titleColorClass)
+    theme === "neon" &&
+    titleColorClass &&
+    projectColors.includes(titleColorClass)
       ? titleColorClass
       : "text-foreground";
 
