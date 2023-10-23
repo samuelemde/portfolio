@@ -1,5 +1,7 @@
-import React, { useState, createContext } from "react";
-import { useRouter } from "next/router";
+"use client";
+
+import React, { createContext, useState } from "react";
+import { usePathname } from "next/navigation";
 
 type HeaderContextType = {
   animate: () => void;
@@ -26,11 +28,9 @@ export function HeaderContextProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const router = useRouter();
+  const pathname = usePathname();
   const [title, setTitle] = useState(
-    router.pathname === "/" || router.pathname === "/projects"
-      ? "Samuel Emde"
-      : "SE",
+    pathname === "/" || pathname === "/projects" ? "Samuel Emde" : "SE",
   );
   const [spacing, setSpacing] = useState("tracking-[0.1rem]");
   const [transition, setTransition] = useState("transition-none");

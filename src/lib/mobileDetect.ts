@@ -1,7 +1,10 @@
 import MobileDetect from "mobile-detect";
-import { type GetServerSidePropsContext } from "next";
+import { headers } from "next/headers";
 
-export const getIsSsrMobile = (context: GetServerSidePropsContext) => {
-  const md = new MobileDetect(context.req.headers["user-agent"]!);
+export const getIsSsrMobile = () => {
+  const userAgent = headers().get("user-agent");
+  if (!userAgent) return false;
+
+  const md = new MobileDetect(userAgent);
   return Boolean(md.mobile());
 };

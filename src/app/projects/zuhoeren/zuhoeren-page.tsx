@@ -1,19 +1,31 @@
+"use client";
+
 import FullBleed from "~/components/FullBleed";
 import Video from "~/components/Video";
-import { useRouter } from "next/router";
 import { projectQuerySchema } from "~/lib/utils";
 import Header from "~/components/Header";
 import { projects } from "~/lib/projects";
+import { useSearchParams } from "next/navigation";
+import Footer from "~/components/Footer";
 
-export default function ZuhoerenPage() {
-  const { query } = useRouter();
+type ZuhoerenPageProps = {
+  isSsrMobile: boolean;
+};
+
+export default function ZuhoerenPage({ isSsrMobile }: ZuhoerenPageProps) {
+  const searchParams = useSearchParams();
+
   let titleColor;
-  const queryParseResult = projectQuerySchema.safeParse(query);
+  const queryParseResult = projectQuerySchema.safeParse(searchParams);
   if (queryParseResult.success) titleColor = queryParseResult.data.titleColor;
 
   return (
     <>
-      <Header titleColorClass={titleColor} initialTitle={"SE"} />
+      <Header
+        titleColorClass={titleColor}
+        initialTitle={"SE"}
+        isSsrMobile={isSsrMobile}
+      />
       <FullBleed
         src={projects.zuhoeren.coverImage}
         title={projects.zuhoeren.title}
@@ -40,6 +52,7 @@ export default function ZuhoerenPage() {
         </div>
         <Video videoId="VK81aU05yFs" />
       </div>
+      <Footer />
     </>
   );
 }

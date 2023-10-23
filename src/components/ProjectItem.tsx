@@ -1,16 +1,19 @@
-import Image from "next/image";
+"use client";
+
+import Image, { type StaticImageData } from "next/image";
 import Link from "next/link";
 import React, { useContext, useEffect, useRef } from "react";
 import { ProjectCardsContext } from "~/contexts/ProjectCardsContext";
 import { cn } from "~/lib/utils";
 import { AspectRatio } from "@radix-ui/react-aspect-ratio";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { HeaderContext } from "~/contexts/HeaderContext";
 import { useVisibilityCheck } from "~/lib/hooks/useVisibilityCheck";
 
 export type ProjectItemProps = {
-  src: string;
+  src: string | StaticImageData;
   title: string;
+  alt: string;
   href: string;
   isSsrMobile?: boolean;
 };
@@ -18,6 +21,7 @@ export type ProjectItemProps = {
 export default function ProjectItem({
   src,
   title,
+  alt,
   href,
   isSsrMobile,
 }: ProjectItemProps) {
@@ -50,7 +54,7 @@ export default function ProjectItem({
     >
       <Image
         src={src}
-        alt={title}
+        alt={alt}
         fill
         className="rounded-full object-cover p-px"
         sizes="(min-width: 1024px) 33.33vw, (min-width: 768px) 50vw, 100vw"

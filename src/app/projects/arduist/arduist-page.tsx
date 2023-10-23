@@ -1,37 +1,35 @@
+"use client";
+
 import FullBleed from "~/components/FullBleed";
 import Link from "next/link";
 import { projectQuerySchema } from "~/lib/utils";
-import { useRouter } from "next/router";
+import { useSearchParams } from "next/navigation";
 import Header from "~/components/Header";
 import { projects } from "~/lib/projects";
 import LightBoxImage from "~/components/LightBoxImage";
+import appImage from "@/images/arduist/app.png";
+import Footer from "~/components/Footer";
+import { type Image } from "~/lib/types";
 
-const images = [
-  {
-    src: "/images/arduist/design.png",
-    alt: "Design drawings",
-    className: "col-span-1 lg:col-span-2",
-  },
-  {
-    src: "/images/arduist/machine-front.jpg",
-    alt: "Arduist machine front",
-  },
-  { src: "/images/arduist/machine-back.jpg", alt: "Arduist machine back" },
-  { src: "/images/arduist/arduino2.jpg", alt: "Arduist machine back" },
-  { src: "/images/arduist/arduino1.jpg", alt: "Arduist machine back" },
-  { src: "/images/arduist/machine1.jpg", alt: "Arduist machine back" },
-  { src: "/images/arduist/machine2.jpg", alt: "Arduist machine back" },
-];
+type ArduistPageProps = {
+  isSsrMobile: boolean;
+  images: Image[];
+};
 
-export default function ArduistPage() {
-  const { query } = useRouter();
+export default function ArduistPage({ isSsrMobile, images }: ArduistPageProps) {
+  const searchParams = useSearchParams();
+
   let titleColor;
-  const queryParseResult = projectQuerySchema.safeParse(query);
+  const queryParseResult = projectQuerySchema.safeParse(searchParams);
   if (queryParseResult.success) titleColor = queryParseResult.data.titleColor;
 
   return (
     <>
-      <Header titleColorClass={titleColor} initialTitle={"SE"} />
+      <Header
+        titleColorClass={titleColor}
+        initialTitle={"SE"}
+        isSsrMobile={isSsrMobile}
+      />
       <FullBleed
         src={projects.arduist.coverImage}
         title={projects.arduist.title}
@@ -76,7 +74,7 @@ export default function ArduistPage() {
         </div>
         <div className={"relative w-full items-center justify-center md:w-2/3"}>
           <LightBoxImage
-            src={"/images/arduist/app.png"}
+            src={appImage}
             alt={"Arduist App"}
             sizes={"(min-width: 768px) 66vw, 100vw"}
           />
@@ -84,7 +82,7 @@ export default function ArduistPage() {
         <div className="grid h-full w-full grid-cols-1 gap-y-20 md:gap-12 md:p-6 lg:grid-cols-2">
           {images.map((image) => (
             <LightBoxImage
-              key={image.src}
+              key={image.alt}
               src={image.src}
               alt={image.alt}
               className={image.className}
@@ -93,6 +91,7 @@ export default function ArduistPage() {
           ))}
         </div>
       </div>
+      <Footer />
     </>
   );
 }

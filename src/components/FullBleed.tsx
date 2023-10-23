@@ -1,10 +1,13 @@
-import Image from "next/image";
+"use client";
+
 import React, { useContext, useEffect } from "react";
-import { cn, projectColors } from "~/lib/utils";
+import { cn } from "~/lib/utils";
 import { ProjectCardsContext } from "~/contexts/ProjectCardsContext";
+import { projectColors } from "~/lib/projectColors";
+import Image, { type StaticImageData } from "next/image";
 
 export type BleedProps = {
-  src: string;
+  src: string | StaticImageData;
   title: string;
   titleColorClass?: string;
   opacity?: number;
@@ -29,19 +32,14 @@ export default function FullBleed({
 
   return (
     <div className="relative h-[100vh] rounded-full">
-      {/*<Image*/}
-      {/*  className="h-full w-full rounded-full object-cover object-center p-px"*/}
-      {/*  src={src}*/}
-      {/*  alt="Full bleed image"*/}
-      {/*  fill*/}
-      {/*  quality={100}*/}
-      {/*  priority={true}*/}
-      {/*  sizes={"100vw"}*/}
-      {/*/>*/}
-      <img
+      <Image
         className="h-full w-full rounded-full object-cover object-center p-px"
         src={src}
         alt="Full bleed image"
+        fill
+        quality={100}
+        priority={true}
+        sizes={"100vw"}
       />
       <h1
         dangerouslySetInnerHTML={{ __html: title }}
@@ -53,7 +51,7 @@ export default function FullBleed({
       />
       <div
         className={cn(
-          "transition-border pointer-events-none absolute inset-0 left-[50%] top-[50%] z-10 h-full w-full translate-x-[-50%] translate-y-[-50%] transform cursor-none rounded-full border-[50cqw] border-background duration-700",
+          "pointer-events-none absolute inset-0 left-[50%] top-[50%] z-10 h-full w-full translate-x-[-50%] translate-y-[-50%] transform cursor-none rounded-full border-[50cqw] border-background transition-border duration-700",
           { "border-0": isOpen },
         )}
       />

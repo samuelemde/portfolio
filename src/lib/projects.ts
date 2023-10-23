@@ -1,3 +1,13 @@
+import nfnImage from "@/images/nfn/nfn.jpeg";
+import embraceImage from "@/images/embrace/embrace1.jpeg";
+import arduistImage from "@/images/arduist/arduist.png";
+import arduistCover from "@/images/arduist/cover-full.png";
+import headPhonesImage from "@/images/zuhoeren/headphones2.jpeg";
+import namelessLandsMap from "@/images/namelesslands/map.jpg";
+import namelessLandsMapClean from "@/images/namelesslands/map-clean.jpg";
+import dreiundzwanzigImage from "@/images/dreiundzwanzig/amorph.jpg";
+import dreiundzwanzigCover from "@/images/dreiundzwanzig/cover-clean.jpg";
+
 export type LinkType = {
   title: string;
   href: string;
@@ -6,38 +16,44 @@ export type LinkType = {
 export const projects = {
   nfn: {
     title: "Named<br/>Function<br/>Networking",
-    previewImage: "/images/nfn/nfn.jpeg",
-    coverImage: "/images/nfn/nfn.jpeg",
+    alt: "Named Function Networking",
+    previewImage: nfnImage,
+    coverImage: nfnImage,
     href: "projects/nfn",
   },
   embrace: {
     title: "Embrace",
-    previewImage: "/images/embrace/embrace1.jpeg",
-    coverImage: "/images/embrace/embrace1.jpeg",
+    alt: "Embrace",
+    previewImage: embraceImage,
+    coverImage: embraceImage,
     href: "projects/embrace",
   },
   arduist: {
     title: "Arduist",
-    previewImage: "/images/arduist/arduist.png",
-    coverImage: "/images/arduist/cover-full.png",
+    alt: "Arduist",
+    previewImage: arduistImage,
+    coverImage: arduistCover,
     href: "projects/arduist",
   },
   zuhoeren: {
     title: "Zuhören",
-    previewImage: "/images/zuhoeren/headphones2.jpeg",
-    coverImage: "/images/zuhoeren/headphones2.jpeg",
+    alt: "Zuhören",
+    previewImage: headPhonesImage,
+    coverImage: headPhonesImage,
     href: "projects/zuhoeren",
   },
   namelesslands: {
+    alt: "Nameless Lands",
     title: "Name&#8203;less Lands",
-    previewImage: "/images/namelesslands/map.jpg",
-    coverImage: "/images/namelesslands/map-clean.jpg",
+    previewImage: namelessLandsMap,
+    coverImage: namelessLandsMapClean,
     href: "projects/nameless-lands",
   },
   dreiundzwanzig: {
     title: "Dreiund&#8203;zwanzig",
-    previewImage: "/images/dreiundzwanzig/cover-clean.jpg",
-    coverImage: "/images/dreiundzwanzig/amorph.jpg",
+    alt: "Dreiundzwanzig",
+    previewImage: dreiundzwanzigCover,
+    coverImage: dreiundzwanzigImage,
     href: "projects/dreiundzwanzig",
   },
 };

@@ -1,25 +1,40 @@
+"use client";
+
 import FullBleed from "~/components/FullBleed";
 import dynamic from "next/dynamic";
 import Video from "~/components/Video";
-import { useRouter } from "next/router";
 import { projectQuerySchema } from "~/lib/utils";
 import Header from "~/components/Header";
 import { projects } from "~/lib/projects";
 import LightBoxImage from "~/components/LightBoxImage";
+import { useSearchParams } from "next/navigation";
+import Footer from "~/components/Footer";
+import coverFull from "@/images/dreiundzwanzig/cover-full.png";
 
 const BandcampPlayer = dynamic(() => import("~/components/BandcampPlayer"), {
   ssr: false,
 });
 
-export default function DreiundzwanzigPage() {
-  const { query } = useRouter();
+type DreiundzwanzigPageProps = {
+  isSsrMobile: boolean;
+};
+
+export default function DreiundzwanzigPage({
+  isSsrMobile,
+}: DreiundzwanzigPageProps) {
+  const searchParams = useSearchParams();
+
   let titleColor;
-  const queryParseResult = projectQuerySchema.safeParse(query);
+  const queryParseResult = projectQuerySchema.safeParse(searchParams);
   if (queryParseResult.success) titleColor = queryParseResult.data.titleColor;
 
   return (
     <>
-      <Header titleColorClass={titleColor} initialTitle={"SE"} />
+      <Header
+        titleColorClass={titleColor}
+        initialTitle={"SE"}
+        isSsrMobile={isSsrMobile}
+      />
       <FullBleed
         src={projects.dreiundzwanzig.coverImage}
         title={projects.dreiundzwanzig.title}
@@ -45,11 +60,7 @@ export default function DreiundzwanzigPage() {
           </p>
         </div>
         <div className="relative h-full w-full">
-          <LightBoxImage
-            src={"/images/dreiundzwanzig/cover-full.png"}
-            alt={"Album cover"}
-            sizes={"100vw"}
-          />
+          <LightBoxImage src={coverFull} alt={"Album cover"} sizes={"100vw"} />
         </div>
         <div className="w-full md:w-2/3 lg:w-1/2">
           <h2 className="font-heading text-3xl uppercase italic">
@@ -63,6 +74,7 @@ export default function DreiundzwanzigPage() {
         </div>
         <Video videoId="JAG4WF2SK_0" />
       </div>
+      <Footer />
     </>
   );
 }

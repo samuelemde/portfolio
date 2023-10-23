@@ -11,22 +11,28 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
-import { cn } from "~/lib/utils";
 
 export type ThemeSwitcherProps =
   React.ButtonHTMLAttributes<HTMLButtonElement> & {
-    size?: string;
     onMouseEnter?: () => void;
     onMouseLeave?: () => void;
   };
 
 export default function ThemeSwitcher({
-  size = "1.2rem",
   onMouseEnter,
   onMouseLeave,
   ...props
 }: ThemeSwitcherProps) {
   const { resolvedTheme, setTheme } = useTheme();
+
+  const [mounted, setMounted] = React.useState(false);
+
+  // Ensure component is mounted before accessing the theme
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
 
   return (
     <DropdownMenu>
@@ -38,31 +44,15 @@ export default function ThemeSwitcher({
           variant="none"
           size="icon"
         >
-          <SunIcon
-            style={{ height: size, width: size }}
-            className={cn(
-              resolvedTheme === "light"
-                ? "rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"
-                : "absolute rotate-90 scale-0",
-            )}
-          />
-          <MoonIcon
-            style={{ height: size, width: size }}
-            className={cn(
-              resolvedTheme === "dark"
-                ? "absolute rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100"
-                : "absolute rotate-90 scale-0",
-            )}
-          />
-          <LightningBoltIcon
-            style={{ height: size, width: size }}
-            className={cn(
-              "absolute transition-all",
-              resolvedTheme === "neon"
-                ? "rotate-0 scale-100"
-                : "rotate-90 scale-0",
-            )}
-          />
+          {resolvedTheme === "light" && (
+            <SunIcon className="h-[1.8rem] w-[1.8rem]" />
+          )}
+          {resolvedTheme === "dark" && (
+            <MoonIcon className="h-[1.8rem] w-[1.8rem]" />
+          )}
+          {resolvedTheme === "neon" && (
+            <LightningBoltIcon className="h-[1.8rem] w-[1.8rem]" />
+          )}
           <span className="sr-only">Toggle theme</span>
         </Button>
       </DropdownMenuTrigger>

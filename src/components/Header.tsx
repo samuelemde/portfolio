@@ -1,27 +1,22 @@
+"use client";
+
 import React, { useContext, useEffect } from "react";
 import Link from "next/link";
-import dynamic from "next/dynamic";
-import { useRouter } from "next/router";
-import { cn, projectColors } from "~/lib/utils";
+import { usePathname, useRouter } from "next/navigation";
+import { cn } from "~/lib/utils";
 import { ProjectCardsContext } from "~/contexts/ProjectCardsContext";
 import { HeaderContext } from "~/contexts/HeaderContext";
-import { useIsMobile } from "~/lib/hooks/useIsMobile";
-import { type GetServerSidePropsContext } from "next";
-import { getIsSsrMobile } from "~/lib/mobileDetect";
 import { Button } from "~/components/ui/button";
 import { EyeClosedIcon, EyeOpenIcon } from "@radix-ui/react-icons";
-import { IsSsrMobileContext } from "~/contexts/SsrMobileContext";
-
-const ThemeSwitcher = dynamic(() => import("~/components/ThemeSwitcher"), {
-  ssr: false,
-});
+import ThemeSwitcher from "~/components/ThemeSwitcher";
+import { projectColors } from "~/lib/projectColors";
 
 export type HeaderProps = {
   initialTitle?: string;
   onMouseEnter?: () => void;
   onMouseLeave?: () => void;
   titleColorClass?: string;
-  isSsrMobile?: boolean;
+  isSsrMobile: boolean;
 };
 
 export default function Header({
@@ -29,10 +24,11 @@ export default function Header({
   onMouseEnter,
   onMouseLeave,
   titleColorClass,
+  isSsrMobile,
 }: HeaderProps) {
   const router = useRouter();
-  const isMobile = useIsMobile();
-  const isSsrMobile = useContext(IsSsrMobileContext);
+  const pathname = usePathname();
+  // const isSsrMobile = useContext(IsSsrMobileContext);
   const { setIsOpen } = useContext(ProjectCardsContext);
   const { spacing, transition, title, setTitle, animate } =
     useContext(HeaderContext);
@@ -48,7 +44,7 @@ export default function Header({
 
   const handleTitleClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    if (router.pathname === "/" || router.pathname === "/projects") {
+    if (pathname === "/" || pathname === "/projects") {
       setIsOpen(false);
       animate();
       setTimeout(() => void router.push("/about"), 700);
@@ -61,9 +57,9 @@ export default function Header({
 
   const handleEyeClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    if (router.pathname === "/") {
+    if (pathname === "/") {
       void router.push("/projects");
-    } else if (router.pathname === "/projects") {
+    } else if (pathname === "/projects") {
       setIsOpen(false);
       setTimeout(() => void router.push("/"), 700);
     }
@@ -75,7 +71,7 @@ export default function Header({
         <Link
           href={"#"}
           className={cn(
-            "hover:shadow-inverse max-w-[279px] cursor-none rounded-3xl py-1 pl-1 pr-3 font-heading text-3xl uppercase italic transition-none duration-700 ease-in-out hover:bg-inversebg hover:text-inversefg md:max-w-[352px] md:pl-4 md:pr-6 md:text-4xl",
+            "max-w-[279px] cursor-none rounded-3xl py-1 pl-1 pr-3 font-heading text-3xl uppercase italic transition-none duration-700 ease-in-out hover:bg-inversebg hover:text-inversefg hover:shadow-inverse md:max-w-[352px] md:pl-4 md:pr-6 md:text-4xl",
             titleColor,
             spacing,
             transition,
@@ -89,7 +85,7 @@ export default function Header({
         <div className="flex flex-row gap-2">
           {!isSsrMobile && (
             <Button
-              className="hover:shadow-inverse cursor-none rounded-full duration-0 hover:bg-inversebg hover:text-inversefg"
+              className="cursor-none rounded-full duration-0 hover:bg-inversebg hover:text-inversefg hover:shadow-inverse"
               variant="none"
               size="icon"
               onMouseEnter={onMouseEnter}
@@ -98,18 +94,17 @@ export default function Header({
             >
               <EyeClosedIcon
                 style={{ height: "1.8rem", width: "1.8rem" }}
-                className={cn({ hidden: router.pathname !== "/" })}
+                className={cn({ hidden: pathname !== "/" })}
               />
               <EyeOpenIcon
                 style={{ height: "1.8rem", width: "1.8rem" }}
-                className={cn({ hidden: router.pathname !== "/projects" })}
+                className={cn({ hidden: pathname !== "/projects" })}
               />
             </Button>
           )}
           <ThemeSwitcher
-            size="1.8rem"
             className={cn(
-              "hover:shadow-inverse cursor-none rounded-full duration-0 hover:bg-inversebg hover:text-inversefg",
+              "cursor-none rounded-full duration-0 hover:bg-inversebg hover:text-inversefg hover:shadow-inverse",
               titleColor,
             )}
             onMouseEnter={onMouseEnter}
@@ -121,6 +116,6 @@ export default function Header({
   );
 }
 
-export function getServerSideProps(context: GetServerSidePropsContext) {
-  return { props: { isSsrMobile: getIsSsrMobile(context) } };
-}
+// export function getServerSideProps(context: GetServerSidePropsContext) {
+//   return { props: { isSsrMobile: getIsSsrMobile(context) } };
+// }

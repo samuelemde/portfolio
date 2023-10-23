@@ -1,10 +1,7 @@
-import { fontFamily } from "tailwindcss/defaultTheme";
-
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ["class"],
   content: [
-    "./pages/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
     "./app/**/*.{ts,tsx}",
     "./src/**/*.{ts,tsx}",
@@ -12,8 +9,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        heading: ["Archivo Black", ...fontFamily.sans],
-        sans: ["Archivo Narrow", ...fontFamily.sans],
+        heading: ["var(--font-archivo-black)"],
+        sans: ["var(--font-archivo-narrow)"],
       },
       letterSpacing: {
         normal: "0.05rem",

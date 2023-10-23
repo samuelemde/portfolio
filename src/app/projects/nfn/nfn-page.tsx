@@ -1,48 +1,36 @@
+"use client";
+
 import Link from "next/link";
 import FullBleed from "~/components/FullBleed";
 import Video from "~/components/Video";
-import { useRouter } from "next/router";
+import { useSearchParams } from "next/navigation";
 import { projectQuerySchema } from "~/lib/utils";
 import Header from "~/components/Header";
 import { projects } from "~/lib/projects";
 import LightBoxImage from "~/components/LightBoxImage";
+import mapImage from "@/images/nfn/map2.png";
+import Footer from "~/components/Footer";
+import { type Image } from "~/lib/types";
 
-const images = [
-  {
-    src: "/images/nfn/classified2.jpg",
-    alt: "Input image #1 - Vehicle approaching an intersection (position of pin in the map at the bottom)",
-  },
-  {
-    src: "/images/nfn/classified3.jpg",
-    alt: "Input image #2 - View around the left corner",
-  },
-  {
-    src: "/images/nfn/dispmap2.jpg",
-    alt: "Disparity map #1",
-  },
-  {
-    src: "/images/nfn/dispmap3.jpg",
-    alt: "Disparity map #2",
-  },
-  {
-    src: "/images/nfn/combined0.jpg",
-    alt: "Combined disparity with classification #1",
-  },
-  {
-    src: "/images/nfn/combined1.jpg",
-    alt: "Combined disparity with classification #2",
-  },
-];
+type NFNPageProps = {
+  isSsrMobile: boolean;
+  images: Image[];
+};
 
-export default function NFNPage() {
-  const { query } = useRouter();
+export default function NFNPage({ isSsrMobile, images }: NFNPageProps) {
+  const searchParams = useSearchParams();
+
   let titleColor;
-  const queryParseResult = projectQuerySchema.safeParse(query);
+  const queryParseResult = projectQuerySchema.safeParse(searchParams);
   if (queryParseResult.success) titleColor = queryParseResult.data.titleColor;
 
   return (
     <>
-      <Header titleColorClass={titleColor} initialTitle={"SE"} />
+      <Header
+        titleColorClass={titleColor}
+        initialTitle={"SE"}
+        isSsrMobile={isSsrMobile}
+      />
       <FullBleed
         src={projects.nfn.coverImage}
         title={projects.nfn.title}
@@ -132,7 +120,7 @@ export default function NFNPage() {
         <div className="grid h-full w-full grid-cols-1 gap-12 gap-y-20 lg:grid-cols-2">
           {images.map((image) => (
             <LightBoxImage
-              key={image.src}
+              key={image.alt}
               src={image.src}
               alt={image.alt}
               sizes={"(min-width: 1024px) 50vw, 100vw"}
@@ -146,13 +134,14 @@ export default function NFNPage() {
           }
         >
           <LightBoxImage
-            src={"/images/nfn/map2.png"}
+            src={mapImage}
             alt={"Resulting map with all the detected objects"}
             sizes={"(min-width: 768px) 66vw, 100vw"}
             renderAlt={true}
           />
         </div>
       </div>
+      <Footer />
     </>
   );
 }

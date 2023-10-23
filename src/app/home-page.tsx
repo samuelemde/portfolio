@@ -1,14 +1,13 @@
+"use client";
+
 import React, { useContext, useEffect, useState } from "react";
 import Link from "next/link";
 import useAnimatedValue from "~/lib/hooks/useAnimatedValue";
-import { cn, projectColors, scale, shuffle } from "~/lib/utils";
-import { useRouter } from "next/router";
+import { cn, scale } from "~/lib/utils";
+import { useRouter } from "next/navigation";
 import Header from "~/components/Header";
-import { useTheme } from "next-themes";
 import { HeaderContext } from "~/contexts/HeaderContext";
-import { links as linkArray, type LinkType } from "~/lib/projects";
-import { type GetServerSidePropsContext } from "next";
-import { getIsSsrMobile } from "~/lib/mobileDetect";
+import { type LinkType } from "~/lib/projects";
 import { StartAnimationContext } from "~/contexts/StartAnimationContext";
 
 const MIN_HOLE_SIZE = 20;
@@ -20,11 +19,16 @@ export type HomeProps = {
   positions: { row: number; col: number }[];
   links: LinkType[];
   colors: string[];
+  isSsrMobile: boolean;
 };
 
-export default function Home({ positions, links, colors }: HomeProps) {
+export default function HomePage({
+  positions,
+  links,
+  colors,
+  isSsrMobile,
+}: HomeProps) {
   const router = useRouter();
-  const { theme } = useTheme();
 
   const [coordinates, setCoordinates] = useState({ x: -100, y: 0 });
   const [canScale, setCanScale] = useState(true);
@@ -112,10 +116,7 @@ export default function Home({ positions, links, colors }: HomeProps) {
     setIsFrozen(true);
     animateHoleSize(0.01, 250);
     setTimeout(() => {
-      void router.push({
-        pathname: url,
-        query: theme === "neon" ? { titleColor } : {},
-      });
+      void router.push(`${url}?titleColor=${titleColor}`);
       setIsFrozen(false);
     }, 250);
   };
@@ -132,8 +133,9 @@ export default function Home({ positions, links, colors }: HomeProps) {
         initialTitle={"Samuel Emde"}
         onMouseEnter={() => setMultiplier(0.01, 100)}
         onMouseLeave={() => setMultiplier(1, 100)}
+        isSsrMobile={isSsrMobile}
       />
-      <div className="grid-rows-7 relative grid h-screen w-screen cursor-none grid-cols-8 items-center justify-center bg-inversebg pt-24">
+      <div className="relative grid h-screen w-screen cursor-none grid-cols-8 grid-rows-7 items-center justify-center bg-inversebg pt-24">
         {links.map(({ title, href }, index) => {
           const { row, col } = positions[index]!;
           return (
@@ -169,29 +171,4 @@ export default function Home({ positions, links, colors }: HomeProps) {
       </div>
     </div>
   );
-}
-
-export function getServerSideProps(context: GetServerSidePropsContext) {
-  const isSsrMobile = getIsSsrMobile(context);
-  if (isSsrMobile)
-    return {
-      redirect: {
-        destination: "/projects",
-        permanent: false,
-      },
-    };
-
-  const links = linkArray.concat([{ title: "About Me", href: "/about" }]);
-  const rows = shuffle(Array.from({ length: links.length }, (_, i) => i + 1));
-  const cols = shuffle(Array.from({ length: links.length }, (_, i) => i + 1));
-  const positions = rows.map((row, index) => ({ row, col: cols[index] }));
-
-  return {
-    props: {
-      positions,
-      showFooter: false,
-      links,
-      colors: projectColors,
-    },
-  };
 }

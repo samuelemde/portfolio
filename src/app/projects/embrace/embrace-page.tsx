@@ -1,29 +1,35 @@
+"use client";
+
 import FullBleed from "~/components/FullBleed";
 import Link from "next/link";
 import Video from "~/components/Video";
-import { useRouter } from "next/router";
 import { projectQuerySchema } from "~/lib/utils";
 import Header from "~/components/Header";
 import { projects } from "~/lib/projects";
 import LightBoxImage from "~/components/LightBoxImage";
+import { useSearchParams } from "next/navigation";
+import Footer from "~/components/Footer";
+import { type Image } from "~/lib/types";
 
-const images = [
-  { src: "/images/embrace/embrace-booklet.png", alt: "Embrace 1 - Booklet" },
-  {
-    src: "/images/embrace/embrace-pasquart.jpg",
-    alt: "Embrace 1 - Centre d’art Pasquart",
-  },
-];
+type EmbracePageProps = {
+  isSsrMobile: boolean;
+  images: Image[];
+};
 
-export default function EmbracePage() {
-  const { query } = useRouter();
+export default function EmbracePage({ isSsrMobile, images }: EmbracePageProps) {
+  const searchParams = useSearchParams();
+
   let titleColor;
-  const queryParseResult = projectQuerySchema.safeParse(query);
+  const queryParseResult = projectQuerySchema.safeParse(searchParams);
   if (queryParseResult.success) titleColor = queryParseResult.data.titleColor;
 
   return (
     <>
-      <Header titleColorClass={titleColor} initialTitle={"SE"} />
+      <Header
+        titleColorClass={titleColor}
+        initialTitle={"SE"}
+        isSsrMobile={isSsrMobile}
+      />
       <FullBleed
         src={projects.embrace.coverImage}
         title={projects.embrace.title}
@@ -65,7 +71,7 @@ export default function EmbracePage() {
         <div className="grid h-full w-full grid-cols-1 gap-12 gap-y-20 py-6 lg:grid-cols-2">
           {images.map((image) => (
             <LightBoxImage
-              key={image.src}
+              key={image.alt}
               src={image.src}
               alt={image.alt}
               sizes={"(min-width: 1024px) 50vw, 100vw"}
@@ -94,6 +100,7 @@ export default function EmbracePage() {
         </div>
         <Video videoId="XdFp7HbbmEs" />
       </div>
+      <Footer />
     </>
   );
 }

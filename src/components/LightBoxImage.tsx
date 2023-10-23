@@ -4,11 +4,11 @@ import {
   DialogContent,
   DialogTrigger,
 } from "~/components/ui/dialog";
-import Image from "next/image";
+import Image, { type StaticImageData } from "next/image";
 import { cn } from "~/lib/utils";
 
 export type LightBoxProps = {
-  src: string;
+  src: string | StaticImageData;
   alt: string;
   sizes: string;
   renderAlt?: boolean;

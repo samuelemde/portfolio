@@ -1,19 +1,34 @@
+"use client";
+
 import FullBleed from "~/components/FullBleed";
-import { useRouter } from "next/router";
 import { projectQuerySchema } from "~/lib/utils";
 import Header from "~/components/Header";
 import { projects } from "~/lib/projects";
 import LightBoxImage from "~/components/LightBoxImage";
+import { useSearchParams } from "next/navigation";
+import Footer from "~/components/Footer";
+import gamePlay from "@/images/namelesslands/gameplay.png";
 
-export default function NamelessLandsPage() {
-  const { query } = useRouter();
+type NamelessLandsPageProps = {
+  isSsrMobile: boolean;
+};
+
+export default function NamelessLandsPage({
+  isSsrMobile,
+}: NamelessLandsPageProps) {
+  const searchParams = useSearchParams();
+
   let titleColor;
-  const queryParseResult = projectQuerySchema.safeParse(query);
+  const queryParseResult = projectQuerySchema.safeParse(searchParams);
   if (queryParseResult.success) titleColor = queryParseResult.data.titleColor;
 
   return (
     <>
-      <Header titleColorClass={titleColor} initialTitle={"SE"} />
+      <Header
+        titleColorClass={titleColor}
+        initialTitle={"SE"}
+        isSsrMobile={isSsrMobile}
+      />
       <FullBleed
         src={projects.namelesslands.coverImage}
         title={projects.namelesslands.title}
@@ -64,7 +79,7 @@ export default function NamelessLandsPage() {
           }
         >
           <LightBoxImage
-            src={"/images/namelesslands/gameplay.png"}
+            src={gamePlay}
             alt={"Nameless Lands gameplay"}
             sizes={"(min-width: 768px) 66vw, 100vw"}
           />
@@ -86,6 +101,7 @@ export default function NamelessLandsPage() {
           </p>
         </div>
       </div>
+      <Footer />
     </>
   );
 }
