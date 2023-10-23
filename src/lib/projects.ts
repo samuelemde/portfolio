@@ -16,45 +16,63 @@ export type LinkType = {
 export const projects = {
   nfn: {
     title: "Named<br/>Function<br/>Networking",
-    alt: "Named Function Networking",
-    previewImage: nfnImage,
-    coverImage: nfnImage,
     href: "projects/nfn",
+    image: {
+      alt: "Named Function Networking",
+      previewImage: nfnImage,
+      coverImage: nfnImage,
+      priority: true,
+    },
   },
   embrace: {
     title: "Embrace",
-    alt: "Embrace",
-    previewImage: embraceImage,
-    coverImage: embraceImage,
     href: "projects/embrace",
+    image: {
+      alt: "Embrace",
+      previewImage: embraceImage,
+      coverImage: embraceImage,
+      priority: false,
+    },
   },
   arduist: {
     title: "Arduist",
-    alt: "Arduist",
-    previewImage: arduistImage,
-    coverImage: arduistCover,
     href: "projects/arduist",
+    image: {
+      alt: "Arduist",
+      previewImage: arduistImage,
+      coverImage: arduistCover,
+      priority: false,
+    },
   },
   zuhoeren: {
     title: "Zuhören",
-    alt: "Zuhören",
-    previewImage: headPhonesImage,
-    coverImage: headPhonesImage,
     href: "projects/zuhoeren",
+    image: {
+      alt: "Zuhören",
+      previewImage: headPhonesImage,
+      coverImage: headPhonesImage,
+      priority: false,
+    },
   },
   namelesslands: {
-    alt: "Nameless Lands",
     title: "Name&#8203;less Lands",
-    previewImage: namelessLandsMap,
-    coverImage: namelessLandsMapClean,
     href: "projects/nameless-lands",
+    image: {
+      alt: "Nameless Lands",
+      previewImage: namelessLandsMap,
+      coverImage: namelessLandsMapClean,
+      priority: false,
+    },
   },
   dreiundzwanzig: {
     title: "Dreiund&#8203;zwanzig",
-    alt: "Dreiundzwanzig",
-    previewImage: dreiundzwanzigCover,
-    coverImage: dreiundzwanzigImage,
     href: "projects/dreiundzwanzig",
+    image: {
+      alt: "Dreiundzwanzig",
+      previewImage: dreiundzwanzigCover,
+      coverImage: dreiundzwanzigImage,
+      priority: false,
+    },
   },
 };
 export const links: LinkType[] = Object.values(projects).map(

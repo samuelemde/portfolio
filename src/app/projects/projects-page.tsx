@@ -21,10 +21,11 @@ export default function ProjectsPage({
               <ProjectItem
                 key={project.title}
                 title={project.title}
-                alt={project.alt}
-                src={project.previewImage}
+                alt={project.image.alt}
+                src={project.image.previewImage}
                 href={project.href}
                 isSsrMobile={isSsrMobile}
+                priority={project.image.priority}
               />
             );
           })}

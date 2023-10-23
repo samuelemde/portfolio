@@ -27,7 +27,7 @@ export default function EmbracePage({ isSsrMobile, images }: EmbracePageProps) {
         isSsrMobile={isSsrMobile}
       />
       <FullBleed
-        src={projects.embrace.coverImage}
+        src={projects.embrace.image.coverImage}
         title={projects.embrace.title}
         titleColorClass={titleColor}
       />

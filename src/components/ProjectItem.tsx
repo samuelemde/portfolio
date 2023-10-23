@@ -16,6 +16,7 @@ export type ProjectItemProps = {
   alt: string;
   href: string;
   isSsrMobile?: boolean;
+  priority?: boolean;
 };
 
 export default function ProjectItem({
@@ -24,6 +25,7 @@ export default function ProjectItem({
   alt,
   href,
   isSsrMobile,
+  priority = false,
 }: ProjectItemProps) {
   const router = useRouter();
   const { animate } = useContext(HeaderContext);
@@ -58,6 +60,7 @@ export default function ProjectItem({
         fill
         className="rounded-full object-cover p-px"
         sizes="(min-width: 1024px) 33.33vw, (min-width: 640px) 50vw, 100vw"
+        priority={priority}
       />
       <Link
         href="#"

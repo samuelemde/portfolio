@@ -28,7 +28,7 @@ export default function NFNPage({ isSsrMobile, images }: NFNPageProps) {
         isSsrMobile={isSsrMobile}
       />
       <FullBleed
-        src={projects.nfn.coverImage}
+        src={projects.nfn.image.coverImage}
         title={projects.nfn.title}
         titleColorClass={titleColor}
       />

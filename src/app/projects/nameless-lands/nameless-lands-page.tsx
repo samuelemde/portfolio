@@ -26,7 +26,7 @@ export default function NamelessLandsPage({
         isSsrMobile={isSsrMobile}
       />
       <FullBleed
-        src={projects.namelesslands.coverImage}
+        src={projects.namelesslands.image.coverImage}
         title={projects.namelesslands.title}
         opacity={0.3}
         titleColorClass={titleColor}

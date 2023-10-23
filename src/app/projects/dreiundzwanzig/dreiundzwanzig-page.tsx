@@ -32,7 +32,7 @@ export default function DreiundzwanzigPage({
         isSsrMobile={isSsrMobile}
       />
       <FullBleed
-        src={projects.dreiundzwanzig.coverImage}
+        src={projects.dreiundzwanzig.image.coverImage}
         title={projects.dreiundzwanzig.title}
         titleColorClass={titleColor}
       />

@@ -23,7 +23,7 @@ export default function ZuhoerenPage({ isSsrMobile }: ZuhoerenPageProps) {
         isSsrMobile={isSsrMobile}
       />
       <FullBleed
-        src={projects.zuhoeren.coverImage}
+        src={projects.zuhoeren.image.coverImage}
         title={projects.zuhoeren.title}
         titleColorClass={titleColor}
       />

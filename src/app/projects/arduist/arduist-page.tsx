@@ -27,7 +27,7 @@ export default function ArduistPage({ isSsrMobile, images }: ArduistPageProps) {
         isSsrMobile={isSsrMobile}
       />
       <FullBleed
-        src={projects.arduist.coverImage}
+        src={projects.arduist.image.coverImage}
         title={projects.arduist.title}
         opacity={0.2}
         titleColorClass={titleColor}
