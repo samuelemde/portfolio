@@ -57,7 +57,7 @@ export default function ProjectItem({
         alt={alt}
         fill
         className="rounded-full object-cover p-px"
-        sizes="(min-width: 1024px) 33.33vw, (min-width: 768px) 50vw, 100vw"
+        sizes="(min-width: 1024px) 33.33vw, (min-width: 640px) 50vw, 100vw"
       />
       <Link
         href="#"
