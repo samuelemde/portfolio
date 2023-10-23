@@ -4,7 +4,6 @@ import FullBleed from "~/components/FullBleed";
 import Link from "next/link";
 import { GitHubLogoIcon, LinkedInLogoIcon } from "@radix-ui/react-icons";
 import Header from "~/components/Header";
-import { projectQuerySchema } from "~/lib/utils";
 import { useSearchParams } from "next/navigation";
 import samuelEmde from "@/images/samuelemde.jpg";
 
@@ -14,10 +13,7 @@ type AboutPageProps = {
 
 export default function AboutPage({ isSsrMobile }: AboutPageProps) {
   const searchParams = useSearchParams();
-
-  let titleColor;
-  const queryParseResult = projectQuerySchema.safeParse(searchParams);
-  if (queryParseResult.success) titleColor = queryParseResult.data.titleColor;
+  const titleColor = searchParams.get("titleColor");
 
   return (
     <>

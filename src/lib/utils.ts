@@ -1,6 +1,5 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
-import { z } from "zod";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -25,7 +24,3 @@ export function scale(
     ((value - min) / (max - min)) * (newMax - newMin) + newMin;
   return Math.min(Math.max(scaledValue, newMin), newMax);
 }
-
-export const projectQuerySchema = z.object({
-  titleColor: z.string().optional(),
-});

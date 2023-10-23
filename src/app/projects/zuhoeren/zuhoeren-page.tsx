@@ -2,7 +2,6 @@
 
 import FullBleed from "~/components/FullBleed";
 import Video from "~/components/Video";
-import { projectQuerySchema } from "~/lib/utils";
 import Header from "~/components/Header";
 import { projects } from "~/lib/projects";
 import { useSearchParams } from "next/navigation";
@@ -14,10 +13,7 @@ type ZuhoerenPageProps = {
 
 export default function ZuhoerenPage({ isSsrMobile }: ZuhoerenPageProps) {
   const searchParams = useSearchParams();
-
-  let titleColor;
-  const queryParseResult = projectQuerySchema.safeParse(searchParams);
-  if (queryParseResult.success) titleColor = queryParseResult.data.titleColor;
+  const titleColor = searchParams.get("titleColor");
 
   return (
     <>

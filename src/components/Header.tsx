@@ -15,7 +15,7 @@ export type HeaderProps = {
   initialTitle?: string;
   onMouseEnter?: () => void;
   onMouseLeave?: () => void;
-  titleColorClass?: string;
+  titleColorClass?: string | null;
   isSsrMobile: boolean;
 };
 

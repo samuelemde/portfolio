@@ -1,7 +1,6 @@
 "use client";
 
 import FullBleed from "~/components/FullBleed";
-import { projectQuerySchema } from "~/lib/utils";
 import Header from "~/components/Header";
 import { projects } from "~/lib/projects";
 import LightBoxImage from "~/components/LightBoxImage";
@@ -17,10 +16,7 @@ export default function NamelessLandsPage({
   isSsrMobile,
 }: NamelessLandsPageProps) {
   const searchParams = useSearchParams();
-
-  let titleColor;
-  const queryParseResult = projectQuerySchema.safeParse(searchParams);
-  if (queryParseResult.success) titleColor = queryParseResult.data.titleColor;
+  const titleColor = searchParams.get("titleColor");
 
   return (
     <>

@@ -9,7 +9,7 @@ import Image, { type StaticImageData } from "next/image";
 export type BleedProps = {
   src: string | StaticImageData;
   title: string;
-  titleColorClass?: string;
+  titleColorClass?: string | null;
   opacity?: number;
 };
 

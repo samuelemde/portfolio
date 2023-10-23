@@ -2,7 +2,6 @@
 
 import FullBleed from "~/components/FullBleed";
 import Link from "next/link";
-import { projectQuerySchema } from "~/lib/utils";
 import { useSearchParams } from "next/navigation";
 import Header from "~/components/Header";
 import { projects } from "~/lib/projects";
@@ -18,10 +17,7 @@ type ArduistPageProps = {
 
 export default function ArduistPage({ isSsrMobile, images }: ArduistPageProps) {
   const searchParams = useSearchParams();
-
-  let titleColor;
-  const queryParseResult = projectQuerySchema.safeParse(searchParams);
-  if (queryParseResult.success) titleColor = queryParseResult.data.titleColor;
+  const titleColor = searchParams.get("titleColor");
 
   return (
     <>
