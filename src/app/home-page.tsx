@@ -9,6 +9,7 @@ import Header from "~/components/Header";
 import { HeaderContext } from "~/contexts/HeaderContext";
 import { type LinkType } from "~/lib/projects";
 import { StartAnimationContext } from "~/contexts/StartAnimationContext";
+import { useTheme } from "next-themes";
 
 const MIN_HOLE_SIZE = 20;
 const MAX_HOLE_SIZE = 600;
@@ -29,6 +30,7 @@ export default function HomePage({
   isSsrMobile,
 }: HomeProps) {
   const router = useRouter();
+  const { theme } = useTheme();
 
   const [coordinates, setCoordinates] = useState({ x: -100, y: 0 });
   const [canScale, setCanScale] = useState(true);
@@ -116,7 +118,9 @@ export default function HomePage({
     setIsFrozen(true);
     animateHoleSize(0.01, 250);
     setTimeout(() => {
-      void router.push(`${url}?titleColor=${titleColor}`);
+      void router.push(
+        `${url}${theme === "neon" ? `titleColor=${titleColor}` : ""}`,
+      );
       setIsFrozen(false);
     }, 250);
   };
