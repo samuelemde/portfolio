@@ -28,7 +28,7 @@ export default function NamelessLandsPage({
       <FullBleed
         src={projects.namelesslands.image.coverImage}
         title={projects.namelesslands.title}
-        opacity={0.3}
+        opacity={0.18}
         titleColorClass={titleColor}
       />
 
