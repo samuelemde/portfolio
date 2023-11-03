@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import useAnimatedValue from "~/lib/hooks/useAnimatedValue";
 import { cn, scale } from "~/lib/utils";
@@ -119,7 +119,7 @@ export default function HomePage({
     animateHoleSize(0.01, 250);
     setTimeout(() => {
       void router.push(
-        `${url}${theme === "neon" ? `titleColor=${titleColor}` : ""}`,
+        `${url}${theme === "neon" ? `?titleColor=${titleColor}` : ""}`,
       );
       setIsFrozen(false);
     }, 250);
