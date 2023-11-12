@@ -30,7 +30,6 @@ export default function Header({
   const router = useRouter();
   const pathname = usePathname();
   const { theme } = useTheme();
-  // const isSsrMobile = useContext(IsSsrMobileContext);
   const { setIsOpen } = useContext(ProjectCardsContext);
   const { spacing, transition, title, setTitle, animate } =
     useContext(HeaderContext);
@@ -51,7 +50,7 @@ export default function Header({
     if (pathname === "/" || pathname === "/projects") {
       setIsOpen(false);
       animate();
-      setTimeout(() => void router.push("/about"), 700);
+      setTimeout(() => router.push("/about"), 700);
     } else {
       setIsOpen(false);
       animate();
@@ -62,10 +61,10 @@ export default function Header({
   const handleEyeClick = (e: React.MouseEvent) => {
     e.preventDefault();
     if (pathname === "/") {
-      void router.push("/projects");
+      router.push("/projects");
     } else if (pathname === "/projects") {
       setIsOpen(false);
-      setTimeout(() => void router.push("/"), 700);
+      setTimeout(() => router.push("/"), 700);
     }
   };
 
@@ -119,7 +118,3 @@ export default function Header({
     </>
   );
 }
-
-// export function getServerSideProps(context: GetServerSidePropsContext) {
-//   return { props: { isSsrMobile: getIsSsrMobile(context) } };
-// }
