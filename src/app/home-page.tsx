@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useContext, useEffect, useState } from "react";
+import React, { Suspense, useContext, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Header from "~/components/Header";
 import { AnimatePresence, motion } from "framer-motion";
@@ -110,12 +110,14 @@ export default function HomePage({ isSsrMobile, positions }: HomeProps) {
 
   return (
     <div className="relative">
-      <Header
-        onMouseEnter={() => !isFirstLoad && setMultiplier(0.01, 100)}
-        onMouseLeave={() => setMultiplier(1, 100)}
-        isSsrMobile={isSsrMobile}
-        initialTitle="Samuel Emde"
-      />
+      <Suspense fallback={null}>
+        <Header
+          onMouseEnter={() => !isFirstLoad && setMultiplier(0.01, 100)}
+          onMouseLeave={() => setMultiplier(1, 100)}
+          isSsrMobile={isSsrMobile}
+          initialTitle="Samuel Emde"
+        />
+      </Suspense>
       <AnimatePresence mode="wait">
         {((isEyeOpen && projectsVisible) || isSsrMobile) && (
           <motion.div

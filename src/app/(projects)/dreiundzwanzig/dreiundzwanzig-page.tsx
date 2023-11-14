@@ -8,6 +8,7 @@ import { projects } from "~/lib/data/projects";
 import LightBoxImage from "~/components/LightBoxImage";
 import Footer from "~/components/Footer";
 import coverFull from "@/images/dreiundzwanzig/cover-full.png";
+import { Suspense } from "react";
 
 const BandcampPlayer = dynamic(() => import("~/components/BandcampPlayer"), {
   ssr: false,
@@ -22,11 +23,13 @@ export default function DreiundzwanzigPage({
 }: DreiundzwanzigPageProps) {
   return (
     <>
-      <Header isSsrMobile={isSsrMobile} initialTitle="SE" />
-      <FullBleed
-        src={projects.dreiundzwanzig.image.coverImage}
-        title={projects.dreiundzwanzig.title}
-      />
+      <Suspense fallback={null}>
+        <Header isSsrMobile={isSsrMobile} initialTitle="SE" />
+        <FullBleed
+          src={projects.dreiundzwanzig.image.coverImage}
+          title={projects.dreiundzwanzig.title}
+        />
+      </Suspense>
       <div className="flex flex-col items-center justify-center gap-20 px-8 pb-60 pt-10 lg:px-12">
         <div className="w-full md:w-2/3 lg:w-1/2">
           <h2 className="font-heading text-3xl uppercase italic">

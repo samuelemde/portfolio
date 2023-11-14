@@ -8,6 +8,7 @@ import Link from "next/link";
 import Video from "~/components/Video";
 import LightBoxImage from "~/components/LightBoxImage";
 import Footer from "~/components/Footer";
+import { Suspense } from "react";
 
 const images = [
   { src: embraceBooklet, alt: "Embrace 1 - Booklet" },
@@ -22,12 +23,13 @@ export default function EmbracePage() {
 
   return (
     <>
-      <Header isSsrMobile={isSsrMobile} initialTitle="SE" />
-      <FullBleed
-        src={projects.embrace.image.coverImage}
-        title={projects.embrace.title}
-      />
-
+      <Suspense fallback={null}>
+        <Header isSsrMobile={isSsrMobile} initialTitle="SE" />
+        <FullBleed
+          src={projects.embrace.image.coverImage}
+          title={projects.embrace.title}
+        />
+      </Suspense>
       <div className="flex flex-col items-center justify-center gap-20 px-8 pb-60 pt-10 lg:px-12">
         <div className="w-full md:w-2/3 lg:w-1/2">
           <h2 className="font-heading text-3xl uppercase italic">Embrace 1</h2>

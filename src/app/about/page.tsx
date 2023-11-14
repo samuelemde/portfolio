@@ -4,13 +4,16 @@ import FullBleed from "~/components/FullBleed";
 import samuelEmde from "@/images/samuelemde.jpg";
 import Link from "next/link";
 import { GitHubLogoIcon, LinkedInLogoIcon } from "@radix-ui/react-icons";
+import { Suspense } from "react";
 
 export default function Page() {
   const isSsrMobile = getIsSsrMobile();
   return (
     <>
-      <Header isSsrMobile={isSsrMobile} initialTitle="SE" />
-      <FullBleed src={samuelEmde} title={""} />
+      <Suspense fallback={null}>
+        <Header isSsrMobile={isSsrMobile} initialTitle="SE" />
+        <FullBleed src={samuelEmde} title={""} />
+      </Suspense>
       <div className="flex flex-col items-center justify-center gap-20 p-6 pb-40 pt-10">
         <div className="w-full md:w-2/3 lg:w-1/2">
           <h2 className="font-heading text-5xl uppercase italic">

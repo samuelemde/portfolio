@@ -13,6 +13,7 @@ import Video from "~/components/Video";
 import LightBoxImage from "~/components/LightBoxImage";
 import mapImage from "@/images/nfn/map2.png";
 import Footer from "~/components/Footer";
+import { Suspense } from "react";
 
 const images = [
   {
@@ -46,11 +47,13 @@ export default function NFNPage() {
 
   return (
     <>
-      <Header isSsrMobile={isSsrMobile} initialTitle="SE" />
-      <FullBleed
-        src={projects.nfn.image.coverImage}
-        title={projects.nfn.title}
-      />
+      <Suspense fallback={null}>
+        <Header isSsrMobile={isSsrMobile} initialTitle="SE" />
+        <FullBleed
+          src={projects.nfn.image.coverImage}
+          title={projects.nfn.title}
+        />
+      </Suspense>
 
       <div className="flex flex-col items-center justify-center gap-20 px-8 pb-60 pt-10 lg:px-12">
         {/* ------ Abstract ------*/}
