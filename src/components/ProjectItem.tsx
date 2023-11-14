@@ -17,7 +17,7 @@ export type ProjectItemProps = PropsWithChildren & {
   onMouseEnter: () => void;
   onMouseLeave: () => void;
   onClick: (e: React.MouseEvent<Element, MouseEvent>, href: string) => void;
-  isSsrMobile?: boolean;
+  isSsrMobile: boolean;
 };
 
 export default function ProjectItem({

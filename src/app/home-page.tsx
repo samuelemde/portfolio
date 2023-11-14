@@ -117,7 +117,7 @@ export default function HomePage({ isSsrMobile, positions }: HomeProps) {
         initialTitle="Samuel Emde"
       />
       <AnimatePresence mode="wait">
-        {isEyeOpen && projectsVisible && !isSsrMobile && (
+        {((isEyeOpen && projectsVisible) || isSsrMobile) && (
           <motion.div
             initial={{ opacity: 0, filter: "blur(15px)" }}
             animate={{ opacity: 1, filter: "blur(0px)" }}
@@ -133,6 +133,7 @@ export default function HomePage({ isSsrMobile, positions }: HomeProps) {
                   onMouseEnter={() => setMultiplier(0.01, 0)}
                   onMouseLeave={() => !isFrozen && setMultiplier(1, 0)}
                   onClick={(e) => handleItemClick(e, project.href)}
+                  isSsrMobile={isSsrMobile}
                 />
               ))}
             </div>
@@ -140,7 +141,7 @@ export default function HomePage({ isSsrMobile, positions }: HomeProps) {
           </motion.div>
         )}
       </AnimatePresence>
-      {(!isEyeOpen || isSsrMobile) && (
+      {!isEyeOpen && !isSsrMobile && (
         <div className="relative grid h-screen w-screen cursor-none grid-cols-8 grid-rows-7 items-center justify-center overflow-hidden bg-inversebg pt-24">
           <NoCursorWindow />
           {links.map((link, index) => {

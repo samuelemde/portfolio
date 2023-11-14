@@ -71,7 +71,7 @@ export default function Header({
 
   return (
     <>
-      <div className="absolute left-0 right-0 top-0 z-30 flex h-[105px] items-center justify-between px-4 py-3 sm:px-8 sm:py-6">
+      <div className="absolute left-0 right-0 top-0 z-30 flex h-[50px] items-center justify-between px-4 py-3 sm:h-[100px] sm:px-8 sm:py-6">
         <Link
           href={"#"}
           className={cn(
