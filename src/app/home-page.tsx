@@ -1,47 +1,61 @@
 "use client";
 
-import React, { useContext, useEffect, useRef, useState } from "react";
-import Link from "next/link";
-import useAnimatedValue from "~/lib/hooks/useAnimatedValue";
-import { cn, scale } from "~/lib/utils";
-import { useRouter } from "next/navigation";
+import React, { useContext, useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import Header from "~/components/Header";
+import { AnimatePresence, motion } from "framer-motion";
+import { links, projects } from "~/lib/data/projects";
+import ProjectItem from "~/components/ProjectItem";
+import useMouseMovement from "~/hooks/useMouseMovement";
 import { HeaderContext } from "~/contexts/HeaderContext";
-import { type LinkType } from "~/lib/projects";
-import { StartAnimationContext } from "~/contexts/StartAnimationContext";
+import useAnimatedValue from "~/hooks/useAnimatedValue";
+import { scale } from "~/lib/utils";
+import useScrollScaling from "~/hooks/useScrollScaling";
 import { useTheme } from "next-themes";
+import ProjectLink from "~/components/ProjectLink";
+import NoCursorWindow from "~/components/NoCursorWindow";
+import Footer from "~/components/Footer";
+import { AppContext } from "~/contexts/AppContext";
+
+export type HomeProps = {
+  isSsrMobile: boolean;
+  positions: { row: number; col: number }[];
+};
 
 const MIN_HOLE_SIZE = 20;
-const MAX_HOLE_SIZE = 600;
+const MAX_HOLE_SIZE = 500;
 const MIN_HIGHLIGHT_SIZE = 80;
 const MAX_HIGHLIGHT_SIZE = 120;
 
-export type HomeProps = {
-  positions: { row: number; col: number }[];
-  links: LinkType[];
-  colors: string[];
-  isSsrMobile: boolean;
+// the bigger the diff in holeSize, the longer the transition
+const getScaledDuration = (holeSize: number) => {
+  const value = Math.abs(holeSize - MAX_HIGHLIGHT_SIZE);
+  return scale(value, 0, MAX_HOLE_SIZE - MIN_HOLE_SIZE, 100, 300);
 };
 
-export default function HomePage({
-  positions,
-  links,
-  colors,
-  isSsrMobile,
-}: HomeProps) {
-  const router = useRouter();
+export default function HomePage({ isSsrMobile, positions }: HomeProps) {
   const { theme } = useTheme();
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
-  const [coordinates, setCoordinates] = useState({ x: -100, y: 0 });
-  const [canScale, setCanScale] = useState(true);
   const [isFrozen, setIsFrozen] = useState(false);
-  const { isFirstLoad, setIsFirstLoad } = useContext(StartAnimationContext);
-  const { animate } = useContext(HeaderContext);
+  const [canScale, setCanScale] = useState(true);
 
-  const [holeSize, animateHoleSize, setHoleSize] = useAnimatedValue(40);
+  const { animateTitle } = useContext(HeaderContext);
+  const { isFirstLoad, setIsFirstLoad, projectsVisible, setProjectsVisible } =
+    useContext(AppContext);
+  const { coordinates, setCoordinates } = useMouseMovement(isFrozen);
   const [multiplier, setMultiplier] = useAnimatedValue(1);
+  const [holeSize, animateHoleSize] = useScrollScaling(
+    canScale,
+    MIN_HOLE_SIZE,
+    MAX_HOLE_SIZE,
+  );
+
+  const isEyeOpen = searchParams.get("eyeOpen") === "true";
 
   useEffect(() => {
+    setProjectsVisible(true);
     if (isFirstLoad) {
       setCanScale(false);
       animateHoleSize(40, 1500, window.innerHeight / 1.2);
@@ -53,44 +67,19 @@ export default function HomePage({
     }
   }, []);
 
-  useEffect(() => {
-    document.documentElement.classList.add("cursor-none");
+  const handleItemClick = (e: React.MouseEvent, href: string) => {
+    e.preventDefault();
+    setProjectsVisible(false);
+    setIsFrozen(true);
+    setMultiplier(0, 0);
+    animateTitle();
+    setTimeout(() => {
+      router.push(href);
+      setIsFrozen(false);
+    }, 300);
+  };
 
-    return () => document.documentElement.classList.remove("cursor-none");
-  }, []);
-
-  useEffect(() => {
-    const handleMouseMove = (e: globalThis.MouseEvent) => {
-      if (isFrozen) return;
-      setCoordinates({ x: e.clientX, y: e.clientY });
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-    };
-  }, [isFrozen]);
-
-  useEffect(() => {
-    const handleScroll = (e: WheelEvent) => {
-      if (!canScale) return;
-      const delta = e.deltaY * 0.2;
-      const newHoleSize = Math.max(
-        MIN_HOLE_SIZE,
-        Math.min(MAX_HOLE_SIZE, holeSize + delta),
-      );
-      setHoleSize(newHoleSize);
-    };
-
-    window.addEventListener("wheel", handleScroll);
-
-    return () => {
-      window.removeEventListener("wheel", handleScroll);
-    };
-  }, [holeSize, setHoleSize, canScale, isFrozen]);
-
-  const handleMouseEnter = () => {
+  const handleLinkEnter = () => {
     if (!canScale) return;
     setCanScale(false);
     const newHoleSize = scale(
@@ -100,79 +89,89 @@ export default function HomePage({
       MIN_HIGHLIGHT_SIZE,
       MAX_HIGHLIGHT_SIZE,
     );
-    setMultiplier(newHoleSize / holeSize, getScaledDuration());
+    setMultiplier(newHoleSize / holeSize, getScaledDuration(holeSize));
   };
 
-  const handleMouseLeave = () => {
+  const handleLinkLeave = () => {
     setCanScale(true);
-    setMultiplier(1, getScaledDuration());
+    setMultiplier(1, getScaledDuration(holeSize));
   };
 
-  const handleClick = (
-    e: React.MouseEvent,
-    url: string,
-    titleColor: string,
-  ) => {
+  const handleLinkClick = (e: React.MouseEvent, url: string, color: string) => {
     e.preventDefault();
-    animate();
+    animateTitle(theme === "neon" ? color : undefined);
     setIsFrozen(true);
     animateHoleSize(0.01, 250);
     setTimeout(() => {
-      void router.push(
-        `${url}${theme === "neon" ? `?titleColor=${titleColor}` : ""}`,
-      );
+      router.push(`${url}?titleColor=${theme === "neon" ? color : "header"}`);
       setIsFrozen(false);
-    }, 250);
-  };
-
-  // the bigger the diff in holeSize, the longer the transition
-  const getScaledDuration = () => {
-    const value = Math.abs(holeSize - MAX_HIGHLIGHT_SIZE);
-    return scale(value, 0, MAX_HOLE_SIZE - MIN_HOLE_SIZE, 100, 300);
+    }, 300);
   };
 
   return (
     <div className="relative">
       <Header
-        initialTitle={"Samuel Emde"}
-        onMouseEnter={() => setMultiplier(0.01, 100)}
+        onMouseEnter={() => !isFirstLoad && setMultiplier(0.01, 100)}
         onMouseLeave={() => setMultiplier(1, 100)}
         isSsrMobile={isSsrMobile}
+        initialTitle="Samuel Emde"
       />
-      <div className="relative grid h-screen w-screen cursor-none grid-cols-8 grid-rows-7 items-center justify-center bg-inversebg pt-24">
-        {links.map(({ title, href }, index) => {
-          const { row, col } = positions[index]!;
-          return (
-            <Link
-              dangerouslySetInnerHTML={{ __html: title }}
-              key={title}
-              href={href}
-              className={cn(
-                "col-span-2 cursor-none p-4 font-heading text-xl font-bold uppercase transition-all duration-700 ease-in-out hover:-skew-x-[22deg] md:text-2xl lg:text-3xl",
-                { "break-words": col === 7 },
-                colors[row - 1],
-              )}
-              style={{
-                gridRowStart: row,
-                gridColumnStart: col,
-              }}
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
-              onClick={(event) => handleClick(event, href, colors[row - 1]!)}
-            />
-          );
-        })}
-        <div
-          className="pointer-events-none absolute inset-0 z-10"
-          style={{
-            backgroundImage: `radial-gradient(circle ${
-              holeSize * multiplier
-            }px at ${coordinates.x}px ${
-              coordinates.y
-            }px, transparent 80%, hsl(var(--background)) 100%)`,
-          }}
-        />
-      </div>
+      <AnimatePresence mode="wait">
+        {isEyeOpen && projectsVisible && !isSsrMobile && (
+          <motion.div
+            initial={{ opacity: 0, filter: "blur(15px)" }}
+            animate={{ opacity: 1, filter: "blur(0px)" }}
+            exit={{ opacity: 0, filter: "blur(15px)" }}
+            transition={{ duration: 0.4 }}
+            className="flex flex-col justify-center p-8"
+          >
+            <div className="grid h-fit w-full grid-cols-1 items-center justify-center gap-16 py-44 sm:grid-cols-2 lg:grid-cols-3">
+              {Object.values(projects).map((project) => (
+                <ProjectItem
+                  key={project.title}
+                  project={project}
+                  onMouseEnter={() => setMultiplier(0.01, 0)}
+                  onMouseLeave={() => !isFrozen && setMultiplier(1, 0)}
+                  onClick={(e) => handleItemClick(e, project.href)}
+                />
+              ))}
+            </div>
+            <Footer />
+          </motion.div>
+        )}
+      </AnimatePresence>
+      {(!isEyeOpen || isSsrMobile) && (
+        <div className="relative grid h-screen w-screen cursor-none grid-cols-8 grid-rows-7 items-center justify-center overflow-hidden bg-inversebg pt-24">
+          <NoCursorWindow />
+          {links.map((link, index) => {
+            const { row, col } = positions[index]!;
+            return (
+              <ProjectLink
+                key={link.title}
+                link={link}
+                col={col}
+                row={row}
+                onMouseEnter={handleLinkEnter}
+                onMouseLeave={handleLinkLeave}
+                onClick={(e, href, color) =>
+                  handleLinkClick(e, href, color.toString())
+                }
+              />
+            );
+          })}
+          <div
+            id="flashlight-overlay"
+            className="pointer-events-none absolute inset-0 z-10"
+            style={{
+              backgroundImage: `radial-gradient(circle ${
+                holeSize * multiplier
+              }px at ${coordinates.x}px ${
+                coordinates.y
+              }px, transparent 90%, hsl(var(--background)))`,
+            }}
+          />
+        </div>
+      )}
     </div>
   );
 }

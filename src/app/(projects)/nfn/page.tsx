@@ -1,36 +1,55 @@
-"use client";
-
-import Link from "next/link";
-import FullBleed from "~/components/FullBleed";
-import Video from "~/components/Video";
-import { useSearchParams } from "next/navigation";
+import { getIsSsrMobile } from "~/lib/mobileDetect";
+import classified2 from "@/images/nfn/classified2.jpg";
+import classified3 from "@/images/nfn/classified3.jpg";
+import dispmap2 from "@/images/nfn/dispmap2.jpg";
+import dispmap3 from "@/images/nfn/dispmap3.jpg";
+import combined0 from "@/images/nfn/combined0.jpg";
+import combined1 from "@/images/nfn/combined1.jpg";
 import Header from "~/components/Header";
-import { projects } from "~/lib/projects";
+import FullBleed from "~/components/FullBleed";
+import { projects } from "~/lib/data/projects";
+import Link from "next/link";
+import Video from "~/components/Video";
 import LightBoxImage from "~/components/LightBoxImage";
 import mapImage from "@/images/nfn/map2.png";
 import Footer from "~/components/Footer";
-import { type Image } from "~/lib/types";
 
-type NFNPageProps = {
-  isSsrMobile: boolean;
-  images: Image[];
-};
+const images = [
+  {
+    src: classified2,
+    alt: "Input image #1 - Vehicle approaching an intersection (position of pin in the map at the bottom)",
+  },
+  {
+    src: classified3,
+    alt: "Input image #2 - View around the left corner",
+  },
+  {
+    src: dispmap2,
+    alt: "Disparity map #1",
+  },
+  {
+    src: dispmap3,
+    alt: "Disparity map #2",
+  },
+  {
+    src: combined0,
+    alt: "Combined disparity with classification #1",
+  },
+  {
+    src: combined1,
+    alt: "Combined disparity with classification #2",
+  },
+];
 
-export default function NFNPage({ isSsrMobile, images }: NFNPageProps) {
-  const searchParams = useSearchParams();
-  const titleColor = searchParams.get("titleColor");
+export default function NFNPage() {
+  const isSsrMobile = getIsSsrMobile();
 
   return (
     <>
-      <Header
-        titleColorClass={titleColor}
-        initialTitle={"SE"}
-        isSsrMobile={isSsrMobile}
-      />
+      <Header isSsrMobile={isSsrMobile} initialTitle="SE" />
       <FullBleed
         src={projects.nfn.image.coverImage}
         title={projects.nfn.title}
-        titleColorClass={titleColor}
       />
 
       <div className="flex flex-col items-center justify-center gap-20 px-8 pb-60 pt-10 lg:px-12">

@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 
-const useAnimatedValue = (initialValue: number) => {
+export default function useAnimatedValue(initialValue: number) {
   const [value, setValue] = useState(initialValue);
   const animationId = useRef<number | null>(null);
 
@@ -40,6 +40,4 @@ const useAnimatedValue = (initialValue: number) => {
   };
 
   return [value, animateValue, setValue] as const;
-};
-
-export default useAnimatedValue;
+}

@@ -1,4 +1,4 @@
-import { type Metadata } from "next";
+import { type Metadata, type Viewport } from "next";
 import { Providers } from "~/components/Providers";
 import { Archivo_Black, Archivo_Narrow } from "next/font/google";
 import "~/styles/globals.css";
@@ -22,7 +22,11 @@ const archivoNarrow = Archivo_Narrow({
 export const metadata: Metadata = {
   title: "Samuel Emde",
   description: "Samuel Emde Portfolio Page",
-  viewport: "width=device-width, initial-scale=1",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
 };
 export default function RootLayout({ children }: PropsWithChildren) {
   return (

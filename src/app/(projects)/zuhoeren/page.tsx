@@ -1,31 +1,18 @@
-"use client";
-
-import FullBleed from "~/components/FullBleed";
-import Video from "~/components/Video";
+import { getIsSsrMobile } from "~/lib/mobileDetect";
 import Header from "~/components/Header";
-import { projects } from "~/lib/projects";
-import { useSearchParams } from "next/navigation";
+import FullBleed from "~/components/FullBleed";
+import { projects } from "~/lib/data/projects";
+import Video from "~/components/Video";
 import Footer from "~/components/Footer";
 
-type ZuhoerenPageProps = {
-  isSsrMobile: boolean;
-};
-
-export default function ZuhoerenPage({ isSsrMobile }: ZuhoerenPageProps) {
-  const searchParams = useSearchParams();
-  const titleColor = searchParams.get("titleColor");
-
+export default function ZuhoerenPage() {
+  const isSsrMobile = getIsSsrMobile();
   return (
     <>
-      <Header
-        titleColorClass={titleColor}
-        initialTitle={"SE"}
-        isSsrMobile={isSsrMobile}
-      />
+      <Header isSsrMobile={isSsrMobile} initialTitle="SE" />
       <FullBleed
         src={projects.zuhoeren.image.coverImage}
         title={projects.zuhoeren.title}
-        titleColorClass={titleColor}
       />
 
       <div className="flex flex-col items-center justify-center gap-20 px-8 pb-60 pt-10 lg:px-12">

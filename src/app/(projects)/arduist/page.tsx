@@ -1,36 +1,46 @@
-"use client";
-
-import FullBleed from "~/components/FullBleed";
-import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import designImage from "@/images/arduist/design.png";
+import machineFront from "@/images/arduist/machine-front.jpg";
+import machineBack from "@/images/arduist/machine-back.jpg";
+import arduino2 from "@/images/arduist/arduino2.jpg";
+import arduino1 from "@/images/arduist/arduino1.jpg";
+import machine1 from "@/images/arduist/machine1.jpg";
+import machine2 from "@/images/arduist/machine2.jpg";
+import { getIsSsrMobile } from "~/lib/mobileDetect";
 import Header from "~/components/Header";
-import { projects } from "~/lib/projects";
+import FullBleed from "~/components/FullBleed";
+import { projects } from "~/lib/data/projects";
+import Link from "next/link";
 import LightBoxImage from "~/components/LightBoxImage";
 import appImage from "@/images/arduist/app.png";
 import Footer from "~/components/Footer";
-import { type Image } from "~/lib/types";
 
-type ArduistPageProps = {
-  isSsrMobile: boolean;
-  images: Image[];
-};
+const images = [
+  {
+    src: designImage,
+    alt: "Design drawings",
+    className: "col-span-1 lg:col-span-2",
+  },
+  {
+    src: machineFront,
+    alt: "Arduist machine front",
+  },
+  { src: machineBack, alt: "Arduist machine back" },
+  { src: arduino2, alt: "Arduino Uno with motor shield" },
+  { src: arduino1, alt: "Arduino Uno with motor shield and stepper motor" },
+  { src: machine1, alt: "Stepper motor" },
+  { src: machine2, alt: "Arduino Uno mounted on the machine" },
+];
 
-export default function ArduistPage({ isSsrMobile, images }: ArduistPageProps) {
-  const searchParams = useSearchParams();
-  const titleColor = searchParams.get("titleColor");
+export default function ArduistPage() {
+  const isSsrMobile = getIsSsrMobile();
 
   return (
     <>
-      <Header
-        titleColorClass={titleColor}
-        initialTitle={"SE"}
-        isSsrMobile={isSsrMobile}
-      />
+      <Header isSsrMobile={isSsrMobile} initialTitle="SE" />
       <FullBleed
         src={projects.arduist.image.coverImage}
         title={projects.arduist.title}
         opacity={0.2}
-        titleColorClass={titleColor}
       />
       <div className="flex flex-col items-center justify-center gap-20 px-8 pb-60 pt-10 lg:px-12">
         <div className="w-full md:w-2/3 lg:w-1/2">

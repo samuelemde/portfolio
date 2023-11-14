@@ -1,35 +1,31 @@
-"use client";
-
+import { getIsSsrMobile } from "~/lib/mobileDetect";
+import embraceBooklet from "@/images/embrace/embrace-booklet.png";
+import embracePasquart from "@/images/embrace/embrace-pasquart.jpg";
+import Header from "~/components/Header";
 import FullBleed from "~/components/FullBleed";
+import { projects } from "~/lib/data/projects";
 import Link from "next/link";
 import Video from "~/components/Video";
-import Header from "~/components/Header";
-import { projects } from "~/lib/projects";
 import LightBoxImage from "~/components/LightBoxImage";
-import { useSearchParams } from "next/navigation";
 import Footer from "~/components/Footer";
-import { type Image } from "~/lib/types";
 
-type EmbracePageProps = {
-  isSsrMobile: boolean;
-  images: Image[];
-};
+const images = [
+  { src: embraceBooklet, alt: "Embrace 1 - Booklet" },
+  {
+    src: embracePasquart,
+    alt: "Embrace 1 - Centre d’art Pasquart",
+  },
+];
 
-export default function EmbracePage({ isSsrMobile, images }: EmbracePageProps) {
-  const searchParams = useSearchParams();
-  const titleColor = searchParams.get("titleColor");
+export default function EmbracePage() {
+  const isSsrMobile = getIsSsrMobile();
 
   return (
     <>
-      <Header
-        titleColorClass={titleColor}
-        initialTitle={"SE"}
-        isSsrMobile={isSsrMobile}
-      />
+      <Header isSsrMobile={isSsrMobile} initialTitle="SE" />
       <FullBleed
         src={projects.embrace.image.coverImage}
         title={projects.embrace.title}
-        titleColorClass={titleColor}
       />
 
       <div className="flex flex-col items-center justify-center gap-20 px-8 pb-60 pt-10 lg:px-12">

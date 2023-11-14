@@ -1,11 +1,10 @@
 "use client";
 
 import * as React from "react";
-import { ThemeProvider as NextThemesProvider } from "next-themes";
-import { ProjectCardsProvider } from "~/contexts/ProjectCardsContext";
-import { HeaderContextProvider } from "~/contexts/HeaderContext";
-import { StartAnimationProvider } from "~/contexts/StartAnimationContext";
 import { type PropsWithChildren } from "react";
+import { ThemeProvider as NextThemesProvider } from "next-themes";
+import { HeaderContextProvider } from "~/contexts/HeaderContext";
+import { AppContextProvider } from "~/contexts/AppContext";
 
 export function Providers({ children }: PropsWithChildren) {
   return (
@@ -16,11 +15,9 @@ export function Providers({ children }: PropsWithChildren) {
       disableTransitionOnChange
       themes={["light", "dark", "system", "neon"]}
     >
-      <StartAnimationProvider>
-        <HeaderContextProvider>
-          <ProjectCardsProvider>{children}</ProjectCardsProvider>
-        </HeaderContextProvider>
-      </StartAnimationProvider>
+      <AppContextProvider>
+        <HeaderContextProvider>{children}</HeaderContextProvider>
+      </AppContextProvider>
     </NextThemesProvider>
   );
 }

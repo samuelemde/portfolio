@@ -1,35 +1,20 @@
-"use client";
-
-import FullBleed from "~/components/FullBleed";
+import { getIsSsrMobile } from "~/lib/mobileDetect";
 import Header from "~/components/Header";
-import { projects } from "~/lib/projects";
+import FullBleed from "~/components/FullBleed";
+import { projects } from "~/lib/data/projects";
 import LightBoxImage from "~/components/LightBoxImage";
-import { useSearchParams } from "next/navigation";
-import Footer from "~/components/Footer";
 import gamePlay from "@/images/namelesslands/gameplay.png";
+import Footer from "~/components/Footer";
 
-type NamelessLandsPageProps = {
-  isSsrMobile: boolean;
-};
-
-export default function NamelessLandsPage({
-  isSsrMobile,
-}: NamelessLandsPageProps) {
-  const searchParams = useSearchParams();
-  const titleColor = searchParams.get("titleColor");
-
+export default function NamelessLandsPage() {
+  const isSsrMobile = getIsSsrMobile();
   return (
     <>
-      <Header
-        titleColorClass={titleColor}
-        initialTitle={"SE"}
-        isSsrMobile={isSsrMobile}
-      />
+      <Header isSsrMobile={isSsrMobile} initialTitle="SE" />
       <FullBleed
         src={projects.namelesslands.image.coverImage}
         title={projects.namelesslands.title}
         opacity={0.18}
-        titleColorClass={titleColor}
       />
 
       <div className="flex flex-col items-center justify-center gap-20 px-8 pb-60 pt-10 lg:px-12">

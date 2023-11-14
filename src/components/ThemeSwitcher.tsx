@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useContext } from "react";
 import { LightningBoltIcon, MoonIcon, SunIcon } from "@radix-ui/react-icons";
 import { useTheme } from "next-themes";
 
@@ -11,6 +12,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
+import { AppContext } from "~/contexts/AppContext";
 
 export type ThemeSwitcherProps =
   React.ButtonHTMLAttributes<HTMLButtonElement> & {
@@ -24,8 +26,8 @@ export default function ThemeSwitcher({
   ...props
 }: ThemeSwitcherProps) {
   const { resolvedTheme, setTheme } = useTheme();
-
-  const [mounted, setMounted] = React.useState(false);
+  const { isFirstLoad } = useContext(AppContext);
+  const [mounted, setMounted] = React.useState(!isFirstLoad);
 
   // Ensure component is mounted before accessing the theme
   React.useEffect(() => {
@@ -33,6 +35,13 @@ export default function ThemeSwitcher({
   }, []);
 
   if (!mounted) return null;
+
+  const Icon =
+    resolvedTheme === "light"
+      ? SunIcon
+      : resolvedTheme === "dark"
+      ? MoonIcon
+      : LightningBoltIcon;
 
   return (
     <DropdownMenu>
@@ -44,15 +53,7 @@ export default function ThemeSwitcher({
           variant="none"
           size="icon"
         >
-          {resolvedTheme === "light" && (
-            <SunIcon className="h-[1.8rem] w-[1.8rem]" />
-          )}
-          {resolvedTheme === "dark" && (
-            <MoonIcon className="h-[1.8rem] w-[1.8rem]" />
-          )}
-          {resolvedTheme === "neon" && (
-            <LightningBoltIcon className="h-[1.8rem] w-[1.8rem]" />
-          )}
+          <Icon className="h-[1.8rem] w-[1.8rem]" />
           <span className="sr-only">Toggle theme</span>
         </Button>
       </DropdownMenuTrigger>

@@ -5,3 +5,19 @@ export type Image = {
   alt: string;
   className?: string;
 };
+
+export type LinkType = {
+  title: string;
+  href: string;
+};
+
+export type Project = {
+  title: string;
+  href: string;
+  image: {
+    alt: string;
+    previewImage: StaticImageData;
+    coverImage: StaticImageData;
+    priority: boolean;
+  };
+};

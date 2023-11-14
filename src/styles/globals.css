@@ -11,16 +11,17 @@
         :root {
             --inverse-background: 0 0% 15%;
             --inverse-foreground: 0 0% 98%;
-            --project-foreground: 0 0% 98%;
+            --project-color: 0 0% 98%;
+            --header-color: 0 0% 3.9%;
             --shadow: hsla(0, 0%, 0%, 0.3);
-            --project-1: 0 0% 98%;
-            --project-2: 0 0% 98%;
-            --project-3: 0 0% 98%;
-            --project-4: 0 0% 98%;
-            --project-5: 0 0% 98%;
-            --project-6: 0 0% 98%;
-            --project-7: 0 0% 98%;
-            --project-8: 0 0% 98%;
+            --color-1: 0 0% 3.9%;
+            --color-2: 0 0% 3.9%;
+            --color-3: 0 0% 3.9%;
+            --color-4: 0 0% 3.9%;
+            --color-5: 0 0% 3.9%;
+            --color-6: 0 0% 3.9%;
+            --color-7: 0 0% 3.9%;
+            --color-8: 0 0% 3.9%;
             --background: 0 0% 100%;
             --foreground: 0 0% 3.9%;
             --card: 0 0% 100%;
@@ -46,16 +47,17 @@
         .dark {
             --inverse-background: 0 0% 90%;
             --inverse-foreground: 0 0% 14.9%;
-            --project-foreground: 0 0% 98%;
+            --project-color: 0 0% 98%;
+            --header-color: 0 0% 98%;
             --shadow: hsla(0, 0%, 0%, 1);
-            --project-1: 0 0% 3.9%;
-            --project-2: 0 0% 3.9%;
-            --project-3: 0 0% 3.9%;
-            --project-4: 0 0% 3.9%;
-            --project-5: 0 0% 3.9%;
-            --project-6: 0 0% 3.9%;
-            --project-7: 0 0% 3.9%;
-            --project-8: 0 0% 3.9%;
+            --color-1: 0 0% 98%;
+            --color-2: 0 0% 98%;
+            --color-3: 0 0% 98%;
+            --color-4: 0 0% 98%;
+            --color-5: 0 0% 98%;
+            --color-6: 0 0% 98%;
+            --color-7: 0 0% 98%;
+            --color-8: 0 0% 98%;
             --background: 0 0% 12%;
             --foreground: 0 0% 98%;
             --card: 0 0% 3.9%;
@@ -80,16 +82,17 @@
         .neon {
             --inverse-background: 200 100% 50%; /* cyan */
             --inverse-foreground: 60 100% 50%; /* yellow */
-            --project-foreground: 140 100% 48%; /* green */
+            --project-color: 140 100% 48%; /* green */
+            --header-color: 140 100% 48%; /* green */
             --shadow: hsla(200, 100%, 10%, 0.2);
-            --project-1: 50 100% 55%;
-            --project-2: 20 100% 55%;
-            --project-3: 0 100% 45%;
-            --project-4: 330 100% 65%;
-            --project-5: 260 100% 60%;
-            --project-6: 230 93% 50%;
-            --project-7: 140 80% 50%;
-            --project-8: 170 80% 50%;
+            --color-1: 50 100% 55%;
+            --color-2: 20 100% 55%;
+            --color-3: 0 100% 45%;
+            --color-4: 330 100% 65%;
+            --color-5: 260 100% 60%;
+            --color-6: 230 93% 50%;
+            --color-7: 140 80% 50%;
+            --color-8: 170 80% 50%;
             --background: 320 80% 50%; /* pink */
             --foreground: 140 100% 45%; /* green */
             --card: 260 100% 70%; /* purple */

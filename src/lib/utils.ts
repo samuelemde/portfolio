@@ -24,3 +24,9 @@ export function scale(
     ((value - min) / (max - min)) * (newMax - newMin) + newMin;
   return Math.min(Math.max(scaledValue, newMin), newMax);
 }
+
+export function getRandomPositions(n = 7) {
+  const rows = shuffle(Array.from({ length: n }, (_, i) => i + 1));
+  const cols = shuffle(Array.from({ length: n }, (_, i) => i + 1));
+  return rows.map((row, index) => ({ row, col: cols[index]! }));
+}

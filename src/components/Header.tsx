@@ -2,21 +2,19 @@
 
 import React, { useContext, useEffect } from "react";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { cn } from "~/lib/utils";
-import { ProjectCardsContext } from "~/contexts/ProjectCardsContext";
 import { HeaderContext } from "~/contexts/HeaderContext";
 import { Button } from "~/components/ui/button";
 import { EyeClosedIcon, EyeOpenIcon } from "@radix-ui/react-icons";
 import ThemeSwitcher from "~/components/ThemeSwitcher";
-import { projectColors } from "~/lib/projectColors";
-import { useTheme } from "next-themes";
+import { colorOptions } from "~/lib/data/colorOptions";
+import { AppContext } from "~/contexts/AppContext";
 
 export type HeaderProps = {
   initialTitle?: string;
   onMouseEnter?: () => void;
   onMouseLeave?: () => void;
-  titleColorClass?: string | null;
   isSsrMobile: boolean;
 };
 
@@ -24,22 +22,26 @@ export default function Header({
   initialTitle,
   onMouseEnter,
   onMouseLeave,
-  titleColorClass,
   isSsrMobile,
 }: HeaderProps) {
   const router = useRouter();
   const pathname = usePathname();
-  const { theme } = useTheme();
-  const { setIsOpen } = useContext(ProjectCardsContext);
-  const { spacing, transition, title, setTitle, animate } =
-    useContext(HeaderContext);
+  const searchParams = useSearchParams();
+  const { setProjectsVisible, setFullBleedExpanded } = useContext(AppContext);
+  const {
+    spacing,
+    transition,
+    title,
+    headerColor,
+    setTitle,
+    isEyeVisible,
+    animateTitle,
+  } = useContext(HeaderContext);
 
-  const titleColor =
-    theme === "neon" &&
-    titleColorClass &&
-    projectColors.includes(titleColorClass)
-      ? titleColorClass
-      : "text-foreground";
+  const isEyeOpen = searchParams.get("eyeOpen") === "true";
+  const queryColor = searchParams.get("titleColor");
+
+  const titleColor = colorOptions[queryColor ?? headerColor ?? "header"];
 
   useEffect(() => {
     if (initialTitle) setTitle(initialTitle);
@@ -48,33 +50,32 @@ export default function Header({
   const handleTitleClick = (e: React.MouseEvent) => {
     e.preventDefault();
     if (pathname === "/" || pathname === "/projects") {
-      setIsOpen(false);
-      animate();
-      setTimeout(() => router.push("/about"), 700);
+      setProjectsVisible(false);
+      animateTitle();
+      setTimeout(() => router.push("/about"), 300);
     } else {
-      setIsOpen(false);
-      animate();
-      setTimeout(() => router.back(), 700);
+      setFullBleedExpanded(false);
+      animateTitle();
+      setTimeout(() => router.back(), 300);
     }
   };
 
   const handleEyeClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    if (pathname === "/") {
-      router.push("/projects");
-    } else if (pathname === "/projects") {
-      setIsOpen(false);
-      setTimeout(() => router.push("/"), 700);
-    }
+    router.push(`/?eyeOpen=${!isEyeOpen}`);
   };
+
+  const showEye =
+    !isSsrMobile && isEyeVisible && ["/", "/projects"].includes(pathname);
+  const EyeIcon = isEyeOpen ? EyeOpenIcon : EyeClosedIcon;
 
   return (
     <>
-      <div className="absolute left-0 right-0 top-0 z-30 flex items-center justify-between px-4 py-3 sm:px-8 sm:py-6">
+      <div className="absolute left-0 right-0 top-0 z-30 flex h-[105px] items-center justify-between px-4 py-3 sm:px-8 sm:py-6">
         <Link
           href={"#"}
           className={cn(
-            "max-w-[279px] cursor-none rounded-3xl py-1 pl-1 pr-3 font-heading text-3xl uppercase italic transition-none duration-700 ease-in-out hover:bg-inversebg hover:text-inversefg hover:shadow-inverse md:max-w-[352px] md:pl-4 md:pr-6 md:text-4xl",
+            "max-w-[279px] cursor-none rounded-3xl py-1 pl-1 pr-3 font-heading text-3xl uppercase italic transition-none duration-300 ease-in-out hover:bg-inversebg hover:text-inversefg hover:shadow-inverse md:max-w-[352px] md:pl-4 md:pr-6 md:text-4xl",
             titleColor,
             spacing,
             transition,
@@ -86,23 +87,19 @@ export default function Header({
           {title}
         </Link>
         <div className="flex flex-row gap-2">
-          {!isSsrMobile && (
+          {showEye && (
             <Button
-              className="cursor-none rounded-full duration-0 hover:bg-inversebg hover:text-inversefg hover:shadow-inverse"
+              className={cn(
+                "cursor-none rounded-full duration-0 hover:bg-inversebg hover:text-inversefg hover:shadow-inverse",
+                titleColor,
+              )}
               variant="none"
               size="icon"
               onMouseEnter={onMouseEnter}
               onMouseLeave={onMouseLeave}
               onClick={handleEyeClick}
             >
-              <EyeClosedIcon
-                style={{ height: "1.8rem", width: "1.8rem" }}
-                className={cn({ hidden: pathname !== "/" })}
-              />
-              <EyeOpenIcon
-                style={{ height: "1.8rem", width: "1.8rem" }}
-                className={cn({ hidden: pathname !== "/projects" })}
-              />
+              <EyeIcon style={{ height: "1.8rem", width: "1.8rem" }} />
             </Button>
           )}
           <ThemeSwitcher

@@ -6,7 +6,7 @@ function isElementFullyVisible(element: HTMLElement) {
   return rect.top >= 0 && rect.bottom <= window.innerHeight;
 }
 
-export function useVisibilityCheck(ref: React.RefObject<HTMLElement>) {
+export default function useVisibilityCheck(ref: React.RefObject<HTMLElement>) {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
