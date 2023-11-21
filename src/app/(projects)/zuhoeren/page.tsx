@@ -35,7 +35,9 @@ export default function ZuhoerenPage() {
             exhibited at GLOBALE: inSonic2015 @ZKM Karlsruhe
           </p>
         </div>
-        <Video videoId="VK81aU05yFs" title="Zuhören" />
+        <Suspense fallback={null}>
+          <Video videoId="VK81aU05yFs" title="Zuhören" />
+        </Suspense>
       </div>
       <Footer />
     </>

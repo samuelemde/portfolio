@@ -35,7 +35,9 @@ export default function DreiundzwanzigPage({
           <h2 className="font-heading text-3xl uppercase italic">
             Description
           </h2>
-          <BandcampPlayer />
+          <Suspense fallback={null}>
+            <BandcampPlayer />
+          </Suspense>
           <p className="pt-4 text-lg tracking-wider">
             Recorded and released in 2014, the instrumental album
             &quot;Dreiundzwanzig&quot; (&quot;Twenty-Three&quot;) by my band
@@ -62,7 +64,9 @@ export default function DreiundzwanzigPage({
             responsible for mixing the live recording for the video below.
           </p>
         </div>
-        <Video videoId="JAG4WF2SK_0" title="Dreiundzwanzig live" />
+        <Suspense fallback={null}>
+          <Video videoId="JAG4WF2SK_0" title="Dreiundzwanzig live" />
+        </Suspense>
       </div>
       <Footer />
     </>
