@@ -23,13 +23,12 @@ export default function Page() {
             As a graduate of the University of Basel and the Bern University of
             the Arts with degrees in Computer Science as well as Music and Media
             Arts, I bring a unique combination of creativity and technical
-            know-how. With over three years of experience as a backend and lead
-            developer for a fintech startup, I have gained a deep understanding
-            of software development and have proven my ability to learn new
-            technologies quickly and efficiently. I strive to create pragmatic
-            solutions in a rapidly evolving technological landscape and enjoy
-            environments that challenge my analytical thinking and creative
-            problem solving skills.
+            know-how. With over four years of experience as a software
+            developer, I have gained a deep technical understanding and have
+            proven my ability to learn new technologies quickly and efficiently.
+            I strive to create pragmatic solutions in a rapidly evolving
+            technological landscape and enjoy environments that challenge my
+            analytical thinking and creative problem solving skills.
           </p>
           <p className="text- pt-4 text-sm italic">
             <Link className="underline" href="mailto:samuel.emde@gmail.com">
