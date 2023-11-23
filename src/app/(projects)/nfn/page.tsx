@@ -47,14 +47,11 @@ export default function NFNPage() {
 
   return (
     <>
-      <Suspense fallback={null}>
-        <Header isSsrMobile={isSsrMobile} initialTitle="SE" />
-        <FullBleed
-          src={projects.nfn.image.coverImage}
-          title={projects.nfn.title}
-        />
-      </Suspense>
-
+      <Header isSsrMobile={isSsrMobile} initialTitle="SE" />
+      <FullBleed
+        src={projects.nfn.image.coverImage}
+        title={projects.nfn.title}
+      />
       <div className="flex flex-col items-center justify-center gap-20 px-8 pb-60 pt-10 lg:px-12">
         {/* ------ Abstract ------*/}
         <div className="w-full md:w-2/3 lg:w-1/2">

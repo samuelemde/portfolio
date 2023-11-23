@@ -13,7 +13,6 @@ import Link from "next/link";
 import LightBoxImage from "~/components/LightBoxImage";
 import appImage from "@/images/arduist/app.png";
 import Footer from "~/components/Footer";
-import { Suspense } from "react";
 
 const images = [
   {
@@ -37,14 +36,12 @@ export default function ArduistPage() {
 
   return (
     <>
-      <Suspense fallback={null}>
-        <Header isSsrMobile={isSsrMobile} initialTitle="SE" />
-        <FullBleed
-          src={projects.arduist.image.coverImage}
-          title={projects.arduist.title}
-          opacity={0.2}
-        />
-      </Suspense>
+      <Header isSsrMobile={isSsrMobile} initialTitle="SE" />
+      <FullBleed
+        src={projects.arduist.image.coverImage}
+        title={projects.arduist.title}
+        opacity={0.2}
+      />
       <div className="flex flex-col items-center justify-center gap-20 px-8 pb-60 pt-10 lg:px-12">
         <div className="w-full md:w-2/3 lg:w-1/2">
           <h2 className="font-heading text-3xl uppercase italic">Summary</h2>

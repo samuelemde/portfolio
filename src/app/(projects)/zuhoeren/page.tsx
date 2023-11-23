@@ -10,13 +10,11 @@ export default function ZuhoerenPage() {
   const isSsrMobile = getIsSsrMobile();
   return (
     <>
-      <Suspense fallback={null}>
-        <Header isSsrMobile={isSsrMobile} initialTitle="SE" />
-        <FullBleed
-          src={projects.zuhoeren.image.coverImage}
-          title={projects.zuhoeren.title}
-        />
-      </Suspense>
+      <Header isSsrMobile={isSsrMobile} initialTitle="SE" />
+      <FullBleed
+        src={projects.zuhoeren.image.coverImage}
+        title={projects.zuhoeren.title}
+      />
       <div className="flex flex-col items-center justify-center gap-20 px-8 pb-60 pt-10 lg:px-12">
         <div className="w-full md:w-2/3 lg:w-1/2">
           <h2 className="font-heading text-3xl uppercase italic">Summary</h2>
