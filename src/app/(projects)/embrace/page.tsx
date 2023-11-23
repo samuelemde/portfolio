@@ -1,6 +1,6 @@
 import { getIsSsrMobile } from "~/lib/mobileDetect";
-import embraceBooklet from "@/images/embrace/embrace-booklet.png";
-import embracePasquart from "@/images/embrace/embrace-pasquart.jpg";
+import embraceBooklet from "@/images/embrace/embrace-booklet.webp";
+import embracePasquart from "@/images/embrace/embrace-pasquart.webp";
 import Header from "~/components/Header";
 import FullBleed from "~/components/FullBleed";
 import { projects } from "~/lib/data/projects";

@@ -31,7 +31,6 @@ export default function LightBoxImage({
             src={src}
             alt={alt}
             fill
-            loading="lazy"
             sizes={sizes}
           />
           {renderAlt && <p className="p-2 text-center text-sm italic">{alt}</p>}
@@ -48,7 +47,7 @@ export default function LightBoxImage({
           className="object-contain p-4"
           src={src}
           alt={alt}
-          layout="fill"
+          fill
           sizes={"100vw"}
         />
       </DialogContent>

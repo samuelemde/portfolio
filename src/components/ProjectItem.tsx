@@ -54,6 +54,7 @@ export default function ProjectItem({
         src={project.image.previewImage}
         alt={project.image.alt}
         fill
+        unoptimized
         className="h-auto w-full rounded-full p-px"
         sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
         priority={project.image.priority ?? true}

@@ -1,15 +1,15 @@
-import nfnCover from "@/images/nfn/nfn.jpeg";
-import nfnPreview from "@/images/nfn/nfn-square.jpg";
-import embracePreview from "@/images/embrace/embrace-square.jpg";
-import embraceCover from "@/images/embrace/embrace1.jpeg";
-import arduistPreview from "@/images/arduist/arduist-square.jpg";
-import arduistCover from "@/images/arduist/cover-full.png";
-import zuhoerenPreview from "@/images/zuhoeren/headphones-square.jpg";
-import zuhoerenCover from "@/images/zuhoeren/headphones2.jpeg";
-import namelessPreview from "@/images/namelesslands/map-square.jpg";
-import namelessCover from "@/images/namelesslands/map-clean.jpg";
-import dreiundzwanzigCover from "@/images/dreiundzwanzig/amorph.jpg";
-import dreiundzwanzigPreview from "@/images/dreiundzwanzig/cover-square.jpg";
+import nfnCover from "@/images/nfn/nfn.webp";
+import nfnPreview from "@/images/nfn/nfn-square.webp";
+import embracePreview from "@/images/embrace/embrace-square.webp";
+import embraceCover from "@/images/embrace/embrace1.webp";
+import arduistPreview from "@/images/arduist/arduist-square.webp";
+import arduistCover from "@/images/arduist/cover-full.webp";
+import zuhoerenPreview from "@/images/zuhoeren/headphones-square.webp";
+import zuhoerenCover from "@/images/zuhoeren/headphones2.webp";
+import namelessPreview from "@/images/namelesslands/map-square.webp";
+import namelessCover from "@/images/namelesslands/map-clean.webp";
+import dreiundzwanzigCover from "@/images/dreiundzwanzig/amorph.webp";
+import dreiundzwanzigPreview from "@/images/dreiundzwanzig/cover-square.webp";
 import { type LinkType } from "~/lib/types";
 
 export const projects = {

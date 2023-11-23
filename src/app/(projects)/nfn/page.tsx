@@ -1,17 +1,17 @@
 import { getIsSsrMobile } from "~/lib/mobileDetect";
-import classified2 from "@/images/nfn/classified2.jpg";
-import classified3 from "@/images/nfn/classified3.jpg";
-import dispmap2 from "@/images/nfn/dispmap2.jpg";
-import dispmap3 from "@/images/nfn/dispmap3.jpg";
-import combined0 from "@/images/nfn/combined0.jpg";
-import combined1 from "@/images/nfn/combined1.jpg";
+import classified2 from "@/images/nfn/classified2.webp";
+import classified3 from "@/images/nfn/classified3.webp";
+import dispmap2 from "@/images/nfn/dispmap2.webp";
+import dispmap3 from "@/images/nfn/dispmap3.webp";
+import combined0 from "@/images/nfn/combined0.webp";
+import combined1 from "@/images/nfn/combined1.webp";
 import Header from "~/components/Header";
 import FullBleed from "~/components/FullBleed";
 import { projects } from "~/lib/data/projects";
 import Link from "next/link";
 import Video from "~/components/Video";
 import LightBoxImage from "~/components/LightBoxImage";
-import mapImage from "@/images/nfn/map2.png";
+import mapImage from "@/images/nfn/map2.webp";
 import Footer from "~/components/Footer";
 import { Suspense } from "react";
 

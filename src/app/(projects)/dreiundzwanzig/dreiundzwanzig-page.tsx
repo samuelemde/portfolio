@@ -7,7 +7,7 @@ import Header from "~/components/Header";
 import { projects } from "~/lib/data/projects";
 import LightBoxImage from "~/components/LightBoxImage";
 import Footer from "~/components/Footer";
-import coverFull from "@/images/dreiundzwanzig/cover-full.png";
+import coverFull from "@/images/dreiundzwanzig/cover-full.webp";
 import { Suspense } from "react";
 
 const BandcampPlayer = dynamic(() => import("~/components/BandcampPlayer"), {

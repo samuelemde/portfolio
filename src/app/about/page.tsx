@@ -1,7 +1,7 @@
 import { getIsSsrMobile } from "~/lib/mobileDetect";
 import Header from "~/components/Header";
 import FullBleed from "~/components/FullBleed";
-import samuelEmde from "@/images/samuelemde.jpg";
+import samuelEmde from "@/images/samuelemde.webp";
 import Link from "next/link";
 import { GitHubLogoIcon, LinkedInLogoIcon } from "@radix-ui/react-icons";
 import { Suspense } from "react";

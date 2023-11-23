@@ -34,6 +34,7 @@ export default function FullBleed({ src, title, opacity = 0 }: BleedProps) {
         src={src}
         alt="Full bleed image"
         fill
+        unoptimized
         quality={90}
         priority={true}
         sizes={"100vh"}

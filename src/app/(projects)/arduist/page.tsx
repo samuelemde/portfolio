@@ -1,17 +1,17 @@
-import designImage from "@/images/arduist/design.png";
-import machineFront from "@/images/arduist/machine-front.jpg";
-import machineBack from "@/images/arduist/machine-back.jpg";
-import arduino2 from "@/images/arduist/arduino2.jpg";
-import arduino1 from "@/images/arduist/arduino1.jpg";
-import machine1 from "@/images/arduist/machine1.jpg";
-import machine2 from "@/images/arduist/machine2.jpg";
+import designImage from "@/images/arduist/design.webp";
+import machineFront from "@/images/arduist/machine-front.webp";
+import machineBack from "@/images/arduist/machine-back.webp";
+import arduino2 from "@/images/arduist/arduino2.webp";
+import arduino1 from "@/images/arduist/arduino1.webp";
+import machine1 from "@/images/arduist/machine1.webp";
+import machine2 from "@/images/arduist/machine2.webp";
 import { getIsSsrMobile } from "~/lib/mobileDetect";
 import Header from "~/components/Header";
 import FullBleed from "~/components/FullBleed";
 import { projects } from "~/lib/data/projects";
 import Link from "next/link";
 import LightBoxImage from "~/components/LightBoxImage";
-import appImage from "@/images/arduist/app.png";
+import appImage from "@/images/arduist/app.webp";
 import Footer from "~/components/Footer";
 
 const images = [

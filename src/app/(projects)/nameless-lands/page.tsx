@@ -3,7 +3,7 @@ import Header from "~/components/Header";
 import FullBleed from "~/components/FullBleed";
 import { projects } from "~/lib/data/projects";
 import LightBoxImage from "~/components/LightBoxImage";
-import gamePlay from "@/images/namelesslands/gameplay.png";
+import gamePlay from "@/images/namelesslands/gameplay.webp";
 import Footer from "~/components/Footer";
 
 export default function NamelessLandsPage() {
