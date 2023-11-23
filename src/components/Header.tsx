@@ -28,15 +28,8 @@ export default function Header({
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const { setProjectsVisible, setFullBleedExpanded } = useContext(AppContext);
-  const {
-    spacing,
-    transition,
-    title,
-    headerColor,
-    setTitle,
-    isEyeVisible,
-    animateTitle,
-  } = useContext(HeaderContext);
+  const { spacing, transition, title, headerColor, setTitle, animateTitle } =
+    useContext(HeaderContext);
 
   const isEyeOpen = searchParams.get("eyeOpen") === "true";
   const queryColor = searchParams.get("titleColor");
@@ -65,8 +58,8 @@ export default function Header({
     router.push(`/?eyeOpen=${!isEyeOpen}`);
   };
 
-  const showEye =
-    !isSsrMobile && isEyeVisible && ["/", "/projects"].includes(pathname);
+  const showEye = !isSsrMobile && ["/", "/projects"].includes(pathname);
+
   const EyeIcon = isEyeOpen ? EyeOpenIcon : EyeClosedIcon;
 
   return (
